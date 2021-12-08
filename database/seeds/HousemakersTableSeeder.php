@@ -13,7 +13,7 @@ class HousemakersTableSeeder extends Seeder
     {
         //
         DB::table('housemakers')->insert([
-            'company' => '株式会社テラビックキョーワ',
+            'name' => '株式会社テラビックキョーワ',
             'get_help' => 0,
         ]);
     }

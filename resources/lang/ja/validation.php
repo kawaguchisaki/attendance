@@ -146,8 +146,8 @@ return [
     */
 
     'attributes' => [
-        'name' => '現場名',
-        'company' => 'ハウスメーカー',
+        'site_name' => '現場名',
+        'housemaker_name' => 'ハウスメーカー',
         ],
 
 ];

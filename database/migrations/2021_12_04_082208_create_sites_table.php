@@ -15,7 +15,7 @@ class CreateSitesTable extends Migration
     {
         Schema::create('sites', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('customer_id');
+            $table->integer('name'); //現場名
             $table->integer('housemaker_id');
             $table->timestamps();
         });
