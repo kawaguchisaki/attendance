@@ -21,15 +21,19 @@ class AttendanceController extends Controller
         $this->validate($request, Site::$rules);
         $this->validate($request, Housemaker::$rules);
         
+        
         $site = new Site;
         $site->name = $request->site_name;
-        $site->housemaker_id = $housemaker->id;
-        $site->save();
         
         $housemaker = new Housemaker;
         $housemaker->name = $request->housemaker_name;
-        $housemaker->get_help = isset($housemaker_form['get_help']); //
+        $housemaker->get_help = $request->get_help;
+        $housemaker->get_help = isset($housemaker['get_help']); //
         $housemaker->save();
+        
+        $site->housemaker_id = $housemaker->id;
+        $site->save();
+        
         
         return redirect('admin/site/new');
     }

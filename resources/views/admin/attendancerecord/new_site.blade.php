@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 mx-auto">
+            <div class="col-8 mx-auto">
                 <h2>現場情報の登録</h2>
                 <form action="{{ action('Admin\AttendanceController@new_site') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
@@ -16,15 +16,15 @@
                         </ul>
                     @endif
                     <div class="form-group row">
-                        <label class="col-md-2">現場名(邸)</label>
-                        <div class="col-md-10">
+                        <label class="col-4">現場名(邸)</label>
+                        <div class="col-8">
                                 <input type="text" class="form-control" name="site_name" value="{{ old('site_name') }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-2">ハウスメーカー</label>
-                        <div class="col-md-10">
-                            <input type="text" name='housemaker_name' list='saved-housemaker-name' placeholder="テキスト入力もしくはダブルクリック" autocomplete="off">
+                        <label class="col-4">ハウスメーカー</label>
+                        <div class="col-8">
+                            <input type="text" name='housemaker_name' list='saved-housemaker-name' placeholder="入力もしくは選択" autocomplete="off">
                                 <datalist id='saved-housemaker-name'>
                                     @foreach($housemakers as $housemaker)
                                         <option value={{$housemaker->name}}>

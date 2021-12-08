@@ -10,6 +10,6 @@ class Site extends Model
     protected $guarded = array('id');
     
     public static $rules = array(
-        'name' => 'required',
+        'site_name' => 'required',
         );
 }

@@ -10,6 +10,6 @@ class Housemaker extends Model
     protected $guarded = array('id');
     
     public static $rules = array(
-        'company' => 'required',
+        'housemaker_name' => 'required',
         );
 }
