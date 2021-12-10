@@ -18,7 +18,7 @@
                     <div class="form-group row">
                         <label class="col-4">現場名(邸)</label>
                         <div class="col-8">
-                                <input type="text" class="form-control" name="site_name" value="{{ old('site_name') }}">
+                                <input type="text" class="form-control" name="site_name" autocomplete=off value="{{ old('site_name') }}">
                         </div>
                     </div>
                     <div class="form-group row">

@@ -16,7 +16,7 @@ class CreateHousemakersTable extends Migration
         Schema::create('housemakers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name'); //ハウスメーカー名
-            $table->boolean('get_help'); //通常０、応援１
+            $table->boolean('get_help'); //通常０=false、応援１=true
             $table->timestamps();
         });
     }
