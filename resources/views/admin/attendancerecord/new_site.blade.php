@@ -16,9 +16,10 @@
                         </ul>
                     @endif
                     <div class="form-group row">
-                        <label class="col-4">現場名(邸)</label>
+                        <label class="col-4">現場名</label>
                         <div class="col-8">
-                                <input type="text" class="form-control" name="site_name" autocomplete=off value="{{ old('site_name') }}">
+                                <!--<input type="text" class="form-control" name="site_name" autocomplete=off value="{{ old('site_name') }}">-->
+                                <input type="text" class="form-control" name="site_name" autocomplete=off value="邸" style="text-align:right">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -32,12 +33,12 @@
                                 </datalist>
                         </div>
                     </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" name="get_help" value="true">応援 <!--true:応援、false:通常-->
-                        </label>
+                    <div class="form-group row">
+                        <label class="col-4">応援</label>
+                        <div class="col-8">
+                            <input type="checkbox" class="form-check-input" name="get_help" value="true"> <!--true:応援、false:通常-->
+                        </div>
                     </div>
-                        
                     {{ csrf_field() }}
                     <input type="submit" class="btn btn-primary" value="登録">
                 </form>

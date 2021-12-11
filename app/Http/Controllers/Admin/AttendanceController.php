@@ -44,4 +44,50 @@ class AttendanceController extends Controller
         
         return redirect('admin/site/new');
     }
+    /*
+    public function home()
+    {
+       // 
+    }
+    
+    public function sites()
+    {
+        //
+    }
+    
+    public function edit_site()
+    {
+        //
+    }
+    
+    public function new_user()
+    {
+        //
+    }
+    
+    public function users()
+    {
+        //
+    }
+    
+    public function edit_user()
+    {
+        //
+    }
+    
+    public function new_attendancerecord()
+    {
+        //
+    }
+    
+    public function attendancerecords()
+    {
+        //
+    }
+    
+    public function approval()
+    {
+        //
+    }
+    */
 }
