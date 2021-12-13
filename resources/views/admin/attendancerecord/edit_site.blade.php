@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title','現場情報登録')
+@section('title','現場情報編集')
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-8 mx-auto">
-                <h2>現場情報登録</h2>
+                <h2>現場情報編集</h2>
                 <form action="{{ action('Admin\AttendanceController@new_site') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
@@ -19,13 +19,13 @@
                         <label class="col-4">現場名</label>
                         <div class="col-8">
                                 <!--<input type="text" class="form-control" name="site_name" autocomplete=off value="{{ old('site_name') }}">-->
-                                <input type="text" class="form-control" name="site_name" autocomplete=off value="邸" style="text-align:right">
+                                <input type="text" class="form-control" name="site_name" autocomplete=off value="a" style="text-align:right">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4">ハウスメーカー</label>
                         <div class="col-8">
-                            <input type="text" name='housemaker_name' list='saved-housemaker-name' placeholder="入力もしくは選択" autocomplete="off">
+                            <input type="text" name='housemaker_name' list='saved-housemaker-name' value="a" autocomplete="off">
                                 <datalist id='saved-housemaker-name'>
                                     @foreach($housemakers as $housemaker)
                                         <option value={{$housemaker->name}}>
@@ -40,9 +40,10 @@
                         </div>
                     </div>
                     {{ csrf_field() }}
-                    <input type="submit" class="btn btn-primary" value="登録">
+                    <input type="submit" class="btn btn-primary" value="編集">
                 </form>
             </div>
         </div>
     </div>
+
 @endsection

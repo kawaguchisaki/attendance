@@ -16,9 +16,13 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin' , 'middleware' => 'auth'], function(){
-   Route::get('attendancerecord/new', 'Admin\AttendanceController@add');
-   Route::get('site/new','Admin\AttendanceController@add');
+   Route::get('attendancerecord/new', 'Admin\AttendanceController@add_new_attendancerecord');
+   Route::get('site/new','Admin\AttendanceController@add_new_site');
    Route::post('site/new','Admin\AttendanceController@new_site');
+   Route::get('sites','Admin\AttendanceController@sites');
+   Route::get('site/edit','Admin\AttendanceController@edit_site');
+   Route::post('site/edit','Admin\AttendanceController@update_site');
+   Route::get('site/delete','Admin\AttendanceController@delete_site');
    /*
    Route::get('home','Admin\AttendanceController@home');
    Route::get('sites','Admin\AttendanceController@sites');
