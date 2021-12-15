@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-8 mx-auto">
                 <h2>現場情報編集</h2>
-                <form action="{{ action('Admin\AttendanceController@new_site') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ action('Admin\AttendanceController@update_site') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -19,13 +19,13 @@
                         <label class="col-4">現場名</label>
                         <div class="col-8">
                                 <!--<input type="text" class="form-control" name="site_name" autocomplete=off value="{{ old('site_name') }}">-->
-                                <input type="text" class="form-control" name="site_name" autocomplete=off value="a" style="text-align:right">
+                                <input type="text" class="form-control" name="site_name" autocomplete=off value="{{ $site->name }}" style="text-align:right">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4">ハウスメーカー</label>
                         <div class="col-8">
-                            <input type="text" name='housemaker_name' list='saved-housemaker-name' value="a" autocomplete="off">
+                            <input type="text" name='housemaker_name' list='saved-housemaker-name' value="{{ $housemaker->name }}" autocomplete="off">
                                 <datalist id='saved-housemaker-name'>
                                     @foreach($housemakers as $housemaker)
                                         <option value={{$housemaker->name}}>
@@ -36,7 +36,7 @@
                     <div class="form-group row">
                         <label class="col-4">応援</label>
                         <div class="col-8">
-                            <input type="checkbox" class="form-check-input" name="get_help" value="true"> <!--true:応援、false:通常-->
+                            <input type="checkbox" class="form-check-input" name="get_help" value="{{ $housemaker->get_help }}"> <!--true:応援、false:通常-->
                         </div>
                     </div>
                     {{ csrf_field() }}

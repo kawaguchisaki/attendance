@@ -17,18 +17,20 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin' , 'middleware' => 'auth'], function(){
    Route::get('attendancerecord/new', 'Admin\AttendanceController@add_new_attendancerecord');
-   Route::get('site/new','Admin\AttendanceController@add_new_site');
+   Route::get('site/new','Admin\AttendanceController@add_new_site')->name('new_site');
    Route::post('site/new','Admin\AttendanceController@new_site');
-   Route::get('sites','Admin\AttendanceController@sites');
+   Route::get('sites','Admin\AttendanceController@sites')->name('sites');
    Route::get('site/edit','Admin\AttendanceController@edit_site');
    Route::post('site/edit','Admin\AttendanceController@update_site');
    Route::get('site/delete','Admin\AttendanceController@delete_site');
-   /*
-   Route::get('home','Admin\AttendanceController@home');
-   Route::get('sites','Admin\AttendanceController@sites');
-   Route::post('site/edit','Admin\AttendanceController@edit_site');
+   Route::get('user/new','Admin\AttendanceController@add_new_user')->name('new_user');
    Route::post('user/new','Admin\AttendanceController@new_user');
-   Route::get('users','Admin\AttendanceController@users');
+   Route::get('home','Admin\AttendanceController@home')->name('admin_home');
+   Route::get('users','Admin\AttendanceController@users')->name('users');
+   /*
+   
+   
+   
    Route::post('user/edit','Admin\AttendanceController@edit_user');
    Route::post('attendancerecord/new','Admin\AttendanceController@new_attendancerecord');
    Route::get('attendancerecords','Admin\AttendanceController@attendancerecords');

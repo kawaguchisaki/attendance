@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Housemaker;
 use App\Site;
+//use App\User;
 
 class AttendanceController extends Controller
 {
@@ -21,7 +22,7 @@ class AttendanceController extends Controller
         $this->validate($request, Site::$rules);
         $this->validate($request, Housemaker::$rules);
         
-        
+        /*
         $site = new Site;
         $site->name = $request->site_name;
         
@@ -41,13 +42,29 @@ class AttendanceController extends Controller
                 $site->save(); //foreach外でセットした値と一緒に保存
             }
         }
+        */
+        $site = new Site;
+        $housemaker = new Housemaker;
+        $site->name = $request->site_name;
+        $housemaker->name = $request->housemaker_name;
+        if(Housemaker::where('name', $request->housemaker_name)->get()->isNotEmpty()){
+            $site->housemaker_id = $housemaker->id; //$housemaker_record->id(housemakersテーブルにある既存のデータのid)を$site->housemaker_id(sitesテーブルのhousemaker_id)とし、
+            $site->save(); //foreach外でセットした値と一緒にsitesテーブルに保存
+        } else {
+            
+            $housemaker->get_help = $request->get_help; //値を取得(foreach外の続き)
+            $housemaker->get_help = isset($housemaker['get_help']); //$housemaker->get_helpがtrueの場合(チェックが入ってる場合)true=1を代入、そうでなければfalse=0を代入
+            $housemaker->save(); //foreach外でセットした値と一緒にhousemakersテーブルに保存
+            $site->housemaker_id = $housemaker->id; //else内で保存されたhouswmakersテーブルのidをsitesテーブルのhousemaker_idにセットし
+            $site->save(); //foreach外でセットした値と一緒に保存
+        }
         
         return redirect('admin/sites');
     }
     
     public function home() //adminホーム
     {
-       //
+       return view('admin.attendancerecord.home');
     }
     
     public function sites() //現場一覧
@@ -60,13 +77,14 @@ class AttendanceController extends Controller
     
     public function edit_site(Request $request) //get現場情報編集
     {
+        
+        $site = Site::find($request->id);
         /*
-        $sites = Site::find($request->id);
-        if (empty($sites)) {
+        if (empty($site)) {
             abort(404);
         }
         */
-        return view('admin.attendancerecord.edit_site', ['housemakers'=> Housemaker::all()]);
+        return view('admin.attendancerecord.edit_site', ['site' => Site::all(),'housemaker'=> Housemaker::all()]);
     }
     
     public function update_site(Request $request) //post現場情報編集
@@ -102,11 +120,24 @@ class AttendanceController extends Controller
         return redirect('admin/sites');
     }
     
-    public function new_user() //従業員登録
+    public function add_new_user() //get従業員登録
     {
-        //
+        return view('admin.attendancerecord.new_user');
     }
-    
+    /*
+    public function new_user(Request $request) //post従業員登録
+    {
+        $this->validate($request, User::$rules);
+        
+        $user = new User;
+        $user_form = $request->all();
+        $user->fill($user_form);
+        $user->is_admin = 0 //従業員＝０
+        $user->save();
+        
+        return redirect('admin/users');
+    }
+    */
     public function users() //従業員一覧
     {
         //

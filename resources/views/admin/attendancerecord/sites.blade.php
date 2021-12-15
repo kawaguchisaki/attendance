@@ -27,15 +27,32 @@
                                 <tr>
                                     <td>{{ $site->id }}</td>
                                     <td>{{ $site->name }}</td>
-                                    <td>{{ $site->housemaker_id }}</td>
-                                    <td>a</td>
+                                    <td>{{ $site->house_maker->name }}</td>
+                                    <td>{{ $site->house_maker->get_help }}</td>
                                     <td>a</td>
                                     <td>
                                         <div>
                                             <a href="{{ action('Admin\AttendanceController@edit_site') }}" role="button" class="btn btn-primary">編集</a>
-                                            <!--<a href="{{ action('Admin\AttendanceController@delete_site') }}" role="button" class="btn btn-secondary">削除</a>-->
-                                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="sakujyokakuninn">削除</button>
-                                            
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModalCentered">削除</button>
+                                            <div class="modal" id="deleteModalCentered" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenteredLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteModalCenteredLabel">確認</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>本当に削除してよろしいですか？</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
+                                                            <input type="submit" class="btn btn-primary" value="削除">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

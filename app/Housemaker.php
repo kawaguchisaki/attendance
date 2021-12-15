@@ -11,5 +11,9 @@ class Housemaker extends Model
     
     public static $rules = array(
         'housemaker_name' => 'required',
-        );
+    );
+    
+    public function getGetHelpAttribute($value){
+        return $value == 1 ? "応援現場" : "通常現場"; //一覧表示画面で０１で表示されないように設定
+    }
 }
