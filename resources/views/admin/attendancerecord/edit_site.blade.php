@@ -25,7 +25,7 @@
                     <div class="form-group row">
                         <label class="col-4">ハウスメーカー</label>
                         <div class="col-8">
-                            <input type="text" name='housemaker_name' list='saved-housemaker-name' value="{{ $housemaker->name }}" autocomplete="off">
+                            <input type="text" name='housemaker_name' list='saved-housemaker-name' value="{{ $site->house_maker->name }}" autocomplete="off">
                                 <datalist id='saved-housemaker-name'>
                                     @foreach($housemakers as $housemaker)
                                         <option value={{$housemaker->name}}>
@@ -36,7 +36,7 @@
                     <div class="form-group row">
                         <label class="col-4">応援</label>
                         <div class="col-8">
-                            <input type="checkbox" class="form-check-input" name="get_help" value="{{ $housemaker->get_help }}"> <!--true:応援、false:通常-->
+                            <input type="checkbox" class="form-check-input" name="get_help" value="{{ $site->house_maker->get_help }}"> <!--true:応援、false:通常-->
                         </div>
                     </div>
                     {{ csrf_field() }}

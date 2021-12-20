@@ -16,36 +16,38 @@
         <div id="app">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-laravel">
                 <duv class="container">
-                    <!--<a class="navbar-brand" href="{{ route('admin_home') }}">ホーム画面</a>-->
-                    <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-                    <!--    <span class="navbar-toggler-icon"></span>-->
-                    <!--</button>-->
-                    <span class="navbar-brand mb-0 h1">管理者画面</span>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ route('admin_home') }}">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="{{ route('user_home') }}">Home <span class="sr-only">(current)</span></a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-site" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                現場情報
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user_sites') }}">
+                                現場一覧
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-site">
-                                    <a class="dropdown-item" href="{{ route('new_site') }}">登録</a>
-                                    <a class="dropdown-item" href="{{ route('admin_sites') }}">一覧</a>
-                                </div>
                             </li>
+                            <!--<li class="nav-item dropdown">-->
+                            <!--    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                            <!--    従業員情報-->
+                            <!--    </a>-->
+                            <!--    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-user">-->
+                            <!--        <a class="dropdown-item" href="{{ route('new_user') }}">登録</a>-->
+                            <!--        <a class="dropdown-item" href="{{ route('users') }}">一覧</a>-->
+                            <!--    </div>-->
+                                
+                            <!--</li>-->
+                        </ul>
+                        <ul class="navbar-nav ml=auto">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                従業員情報
+                                (ユーザ名)
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-user">
-                                    <a class="dropdown-item" href="{{ route('new_user') }}">登録</a>
-                                    <a class="dropdown-item" href="{{ route('users') }}">一覧</a>
+                                    <a class="dropdown-item" href="{{ route('edit_user') }}">アイコン編集</a>
                                 </div>
+                                
                             </li>
                         </ul>
-                        
                     </div>
                 </duv>
             </nav>

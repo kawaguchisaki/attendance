@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    protected $guarded = array('id');
+    
+    public static $rules = array(
+        'name' => 'required',
+    );
+    
+    public function isAdmin(){
+        return $this->is_admin == 1;
+    }
 }

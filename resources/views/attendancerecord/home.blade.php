@@ -1,6 +1,6 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 
-@section('title','ホーム(管理者)')
+@section('title','ホーム')
 
 @section('content')
     <div class="container">

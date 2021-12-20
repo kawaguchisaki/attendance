@@ -28,7 +28,7 @@
                             <input type="text" name='housemaker_name' list='saved-housemaker-name' placeholder="入力もしくは選択" autocomplete="off">
                                 <datalist id='saved-housemaker-name'>
                                     @foreach($housemakers as $housemaker)
-                                        <option value={{$housemaker->name}}>
+                                        <option value="{{$housemaker->name }}">
                                     @endforeach($housemakers as $housemaker)
                                 </datalist>
                         </div>

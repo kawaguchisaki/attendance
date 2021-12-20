@@ -32,9 +32,9 @@
                                     <td>a</td>
                                     <td>
                                         <div>
-                                            <a href="{{ action('Admin\AttendanceController@edit_site') }}" role="button" class="btn btn-primary">編集</a>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModalCentered">削除</button>
-                                            <div class="modal" id="deleteModalCentered" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenteredLabel" aria-hidden="true">
+                                            <a href="{{ action('Admin\AttendanceController@edit_site' , ['id' => $site->id]) }}" role="button" class="btn btn-secondary">編集</a>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModalCentered{{ $site->id }}">削除</button> //foreach内のため、{{ $site->id }}で場合に応じたidが取得できるよう設定。
+                                            <div class="modal" id="deleteModalCentered{{ $site->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenteredLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -44,11 +44,11 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p>本当に削除してよろしいですか？</p>
+                                                            <p>削除しますか？</p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">戻る</button>
-                                                            <input type="submit" class="btn btn-primary" value="削除">
+                                                            <a href="{{ action('Admin\AttendanceController@delete_site' , ['id' => $site->id]) }}" role="button" class="btn btn-danger">削除</a>
                                                         </div>
                                                     </div>
                                                 </div>
