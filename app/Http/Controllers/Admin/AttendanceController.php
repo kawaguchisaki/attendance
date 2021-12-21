@@ -9,7 +9,6 @@ use App\Housemaker;
 use App\Site;
 use App\User;
 use Storage;
-//use App\User;
 
 class AttendanceController extends Controller
 {
@@ -114,33 +113,45 @@ class AttendanceController extends Controller
         $user = new User;
         $user_form = $request->all();
         
+        if (isset($user_form['icon_path'])) {
+            $path = $request->file('icon_path')->store('public/icon_path');
+        } else {
+            $user->icon_path = null;
+        }
+        
+        unset($user_form['icon_path']);
+        
+        /*
         if (isset($user_form['icon_path'])){
           $path = Storage::disk('s3')->putFile('/',$user_form['image'],'icon_path');
           $user->icon_path = Storage::disk('s3')->url($path);
         } else {
             $user->icon_path = null;
         }
-        unset($news_form['image']);
-        
+        unset($user_form['icon_path']);
+        */
         $user->fill($user_form);
         $user->is_admin = 0; //従業員＝０
         $user->save();
         
-        return redirect('admin/users');
+        return redirect('admin.attendancerecord.new_user');
     }
     
     public function users() //従業員一覧
     {
-        //
-        return view('admin.attendancerecord.users');
+        $users = User::all();
+        
+        return view('admin.attendancerecord.users',['users' => $users]);
     }
     
     //get従業員編集は従業員画面と共通
     //post従業員編集は従業員画面と共通
     
-    public function add_new_attendancerecord() //get勤務記録登録
+    public function add_new_attendancerecord(Request $request) //get勤務記録登録
     {
-        return view('admin.attendancerecord.new');
+        $site = Site::find($request->id);
+        
+        return view('admin.attendancerecord.new',['users' => User::all(), 'sites' => Site::all(),'housemakers' => Housemaker::all(), 'site' => $site]);
     }
     
     public function new_attendancerecord() //post勤務記録登録
@@ -150,7 +161,7 @@ class AttendanceController extends Controller
     
     public function attendancerecords() //勤務記録一覧
     {
-        //
+        return view('admin.attendancerecord.attendancerecords',['users' => User::all()]);
     }
     
     public function approval() //申請一覧

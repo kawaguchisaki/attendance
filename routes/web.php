@@ -26,12 +26,12 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'admin'], function(){ //管�
     Route::get('user/new','Admin\AttendanceController@add_new_user')->name('new_user');
     Route::post('user/new','Admin\AttendanceController@new_user');
     Route::get('users','Admin\AttendanceController@users')->name('users');
-    Route::post('user/edit','Admin\AttendanceController@update_user');
-    Route::get('attendancerecord/new', 'Admin\AttendanceController@add_new_attendancerecord');
+    Route::get('users/delete','Admin\AttendanceController@delete_user');
+    Route::get('attendancerecord/new', 'Admin\AttendanceController@add_new_attendancerecord')->name('new');
+    Route::post('attendancerecord/new','Admin\AttendanceController@new_attendancerecord');
+    Route::get('attendancerecords','Admin\AttendanceController@attendancerecords')->name('admin_attendancerecords');
     
     /*管理者
-    Route::post('attendancerecord/new','Admin\AttendanceController@new_attendancerecord');
-    Route::get('attendancerecords','Admin\AttendanceController@attendancerecords');
     Route::post('attendancerecord/approval','Admin\AttendanceController@approval');
     */
 });
@@ -39,9 +39,11 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'admin'], function(){ //管�
 Route::group(['prefix' => 'user' , 'middleware' => 'auth'], function(){
     Route::get('home','AttendanceController@home')->name('user_home');
     Route::get('sites','AttendanceController@sites')->name('user_sites');
+    Route::get('edit','AttendanceController@edit_user')->name('edit_user');
+    Route::post('edit','AttendanceController@update_user');
 });
 
-Route::post('edit','AttendanceController@edit_user')->name('edit_user');
+
 
 /*
 Route::group(['prefix' => 'attendancerecord' , 'middleware' => 'auth'], function(){

@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     {{ csrf_field() }}
-                    <input type="submit" class="btn btn-primary" value="編集">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="編集">
                 </form>
             </div>
         </div>
