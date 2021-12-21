@@ -26,7 +26,9 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'admin'], function(){ //ç®¡ç
     Route::get('user/new','Admin\AttendanceController@add_new_user')->name('new_user');
     Route::post('user/new','Admin\AttendanceController@new_user');
     Route::get('users','Admin\AttendanceController@users')->name('users');
-    Route::get('users/delete','Admin\AttendanceController@delete_user');
+    Route::get('user/edit','Admin\AttendanceController@edit_user')->name('addmin_edit_user');
+    Route::post('user/edit','Admin\AttendanceController@update_user');
+    Route::get('user/delete','Admin\AttendanceController@delete_user');
     Route::get('attendancerecord/new', 'Admin\AttendanceController@add_new_attendancerecord')->name('new');
     Route::post('attendancerecord/new','Admin\AttendanceController@new_attendancerecord');
     Route::get('attendancerecords','Admin\AttendanceController@attendancerecords')->name('admin_attendancerecords');

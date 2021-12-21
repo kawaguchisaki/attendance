@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.admin')
 
 @section('title','プロフィール編集')
 
@@ -18,34 +18,28 @@
                     <div class="form-group row">
                         <label class="col-4">名前</label>
                         <div class="col-8">
-                            <p>{{ $user->name }}</p>
+                            {{ $user->name }}
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4">メールアドレス</label>
                         <div class="col-8">
-                            変更前：{{ $user->email }}
-                        </div>
-                        <label class="col-4"></label>
-                        <div class="col-8">
-                            変更後：<input type="text" size=20 name='email' placeholder="新しいメールアドレス" autocomplete="off">
+                            {{ $user->email }}
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4">アイコン</label>
                         <div class="col-8">
-                            <input type="file" class="form-control-file" name="icon_path">
                             <div class="form-text text-info">
-                                設定中: {{ $user->icon_path }}
+                                設定中：{{ $user->icon_path }}
                             </div>
+                            <input type="file" class="form-control-file" name="icon_path">
                             <div class="form-check">
                                 <label class="form-check-label">
                                     <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
                                 </label>
                             </div>
                         </div>
-                        
-                        
                     </div>
                     {{ csrf_field() }}
                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="編集">

@@ -27,10 +27,10 @@
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->icon_path }}</td>
                                     <td>{{ $user->name }}</td>
-                                    <td>{{ $user->is_admin }}</td>
+                                    <td>{{ $user->role }}</td>
                                     <td>
                                         <div class="text-right">
-                                            <a href="{{ action('AttendanceController@edit_user' , ['id' => $user->id]) }}" role="button" class="btn btn-secondary">編集</a>
+                                            <a href="{{ action('Admin\AttendanceController@edit_user' , ['id' => $user->id]) }}" role="button" class="btn btn-secondary">編集</a>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModalCentered{{ $user->id }}">削除</button> <!--foreach内のため、{{ $user->id }}で場合に応じたidが取得できるよう設定。-->
                                             <div class="modal" id="deleteModalCentered{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenteredLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered" role="document">

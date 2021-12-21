@@ -45,7 +45,17 @@
                                 </div>
                             </li>
                         </ul>
-                        
+                        <!--<ul class="navbar-nav ml=auto">-->
+                        <!--    <li class="nav-item dropdown">-->
+                        <!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                        <!--        
+                        <!--        ユーザー名表示-->
+                        <!--        </a>-->
+                        <!--        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-user">-->
+                        <!--            <a class="dropdown-item" href="{{ route('edit_user') }}">プロフィール編集</a>-->
+                        <!--        </div>-->
+                        <!--    </li>-->
+                        <!--</ul>-->
                     </div>
                 </duv>
             </nav>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 use App\Housemaker;
@@ -24,7 +25,7 @@ class AttendanceController extends Controller
         $this->validate($request, Housemaker::$rules);
         
         $site = new Site;
-        $housemaker = new Housemaker;
+        
         
         $saved_housemaker = Housemaker::where('name', $request->housemaker_name)->first(); //hosemakersテーブルでnameを検索、フォームから送られてきたhousemaker_nameと一致するものがあればそれを代入
         if($saved_housemaker){
@@ -32,6 +33,7 @@ class AttendanceController extends Controller
             $site->housemaker_id = $saved_housemaker->id; //housemakersテーブルにある既存のデータのidを$site->housemaker_idとし、
             $site->save();
         }else {
+            $housemaker = new Housemaker;
             $housemaker->name = $request->housemaker_name;
             $housemaker->get_help = $request->get_help;
             $housemaker->get_help = isset($housemaker['get_help']); //$housemaker->get_helpがtrueの場合(チェックが入ってる場合)true=1を代入、そうでなければfalse=0を代入
@@ -46,7 +48,7 @@ class AttendanceController extends Controller
     
     public function home() //adminホーム
     {
-       return view('admin.attendancerecord.home');
+        return view('admin.attendancerecord.home');
     }
     
     public function sites() //現場一覧
@@ -144,19 +146,40 @@ class AttendanceController extends Controller
         return view('admin.attendancerecord.users',['users' => $users]);
     }
     
-    //get従業員編集は従業員画面と共通
-    //post従業員編集は従業員画面と共通
+    public function edit_user(Request $request) //get従業員編集
+    {
+        $user = User::find($request->id);
+        
+        return view('admin.attendancerecord.edit_user',['user' => $user]);
+    }
+    
+    public function update_user() //post従業員編集
+    {
+        //
+        return redirect('admin/users');
+    }
+    
+    public function delete_user(){ //従業員削除
+        
+    }
     
     public function add_new_attendancerecord(Request $request) //get勤務記録登録
     {
-        $site = Site::find($request->id);
         
-        return view('admin.attendancerecord.new',['users' => User::all(), 'sites' => Site::all(),'housemakers' => Housemaker::all(), 'site' => $site]);
+        
+        return view('admin.attendancerecord.new',['users' => User::all(), 'sites' => Site::all(),'housemakers' => Housemaker::all()]);
     }
     
-    public function new_attendancerecord() //post勤務記録登録
+    public function new_attendancerecord(Request $request) //post勤務記録登録
     {
-        //
+        $this->validate($request, User::$rules);
+        $this->validate($request, Site::$rules);
+        $this->validate($request, Housemaker::$rules);
+        
+        $attendance = new Attendance();
+        $attendance->date = $request->date;
+        $attendance->name = $request->name;
+        
     }
     
     public function attendancerecords() //勤務記録一覧

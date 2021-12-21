@@ -24,12 +24,18 @@
                     <div class="form-group row">
                         <label class="col-4">名前</label>
                         <div class="col-8">
-                            <input type="text" name='name' list='saved-name' placeholder="選択" autocomplete="off">
-                                <datalist id='saved-name'>
-                                    @foreach($users as $user)
-                                        <option value="{{$user->name }}">
-                                    @endforeach($users as $user)
-                                </datalist>
+                            <!--<input type="text" name='name' list='saved-name' placeholder="選択" autocomplete="off">-->
+                            <!--    <datalist id='saved-name'>-->
+                            <!--        @foreach($users as $user)-->
+                            <!--            <option value="{{ $user->name }}">-->
+                            <!--        @endforeach($users as $user)-->
+                            <!--    </datalist>-->
+                            
+                            <select class="form-control" name="name">
+                                @foreach($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach($users as $user)
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -59,10 +65,10 @@
                         <div class="col-8">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-secondary active">
-                                    <input type="radio" name="options" id="option1" autocomplete="off" checked>１日
+                                    <input type="radio" name="takes" id="full" autocomplete="off" checked>１日
                                 </label>
                                 <label class="btn btn-outline-secondary">
-                                    <input type="radio" name="options" id="option2" autocomplete="off">半日
+                                    <input type="radio" name="takes" id="half" autocomplete="off">半日
                                 </label>
                             </div>
                         </div>

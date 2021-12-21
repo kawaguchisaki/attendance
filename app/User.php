@@ -44,11 +44,16 @@ class User extends Authenticatable
     );
     
     public function isAdmin(){
+        
         return $this->is_admin == 1;
     }
-    /*
-    public function getIsAdminAttribute($value){
-        return $value == 1 ? "管理者" : " ";
+    
+    public function getHogeHogeAttribute(){
+        return "from hogehoge";
     }
-    */
+
+    public function getRoleAttribute(){
+        return $this->is_admin == 1 ? "管理者" : " ";
+    }
+    
 }

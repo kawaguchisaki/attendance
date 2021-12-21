@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 use App\Housemaker;
@@ -27,10 +28,10 @@ class AttendanceController extends Controller
         return view('attendancerecord.sites',['sites' => $sites , 'housemakers' => $housemakers]);
     }
     
-    public function edit_user() //get従業員編集
+    public function edit_user(Request $request) //get従業員編集
     {
-        //
-        return view('attendancerecord.edit_user');
+        $user = Auth::user();
+        return view('attendancerecord.edit_user',['user' => $user]);
     }
     
     public function update_user() //post従業員編集
