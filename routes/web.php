@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::group(['prefix' => 'admin' , 'middleware' => 'admin'], function(){ //管理者
@@ -32,6 +32,11 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'admin'], function(){ //管�
     Route::get('attendancerecord/new', 'Admin\AttendanceController@add_new_attendancerecord')->name('new');
     Route::post('attendancerecord/new','Admin\AttendanceController@new_attendancerecord');
     Route::get('attendancerecords','Admin\AttendanceController@attendancerecords')->name('admin_attendancerecords');
+    Route::get('attendancerecord/edit','Admin\AttendanceController@edit_attendancerecord')->name('admin_edit_attendancerecord');
+    Route::post('attendancerecord/edit','Admin\AttendanceController@update_attendancerecord');
+    Route::get('attendancerecord/delete','Admin\AttendanceController@delete_attendancerecord');
+    Route::get('user/import','Admin\AttendanceController@add_import')->name('import');
+    Route::post('user/import','Admin\AttendanceController@import');
     
     /*管理者
     Route::post('attendancerecord/approval','Admin\AttendanceController@approval');
@@ -40,22 +45,22 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'admin'], function(){ //管�
 //従業員
 Route::group(['prefix' => 'user' , 'middleware' => 'auth'], function(){
     Route::get('home','AttendanceController@home')->name('user_home');
-    Route::get('sites','AttendanceController@sites')->name('user_sites');
     Route::get('edit','AttendanceController@edit_user')->name('edit_user');
     Route::post('edit','AttendanceController@update_user');
 });
 
 
 
-/*
-Route::group(['prefix' => 'attendancerecord' , 'middleware' => 'auth'], function(){
-    Route::post('new','AttendanceController@new_attendancerecord');
-    Route::post('edit','AttendanceController@edit_attendancerecord');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/attendancerecord/new','AttendanceController@add_new_attendancerecord')->name('user_new_attendancerecord');
+    Route::post('/attendancerecord/new','AttendanceController@new_attendancerecord');
+    Route::get('/attendancerecord/edit','AttendanceController@edit_attendancerecord');
+    Route::post('/attendancerecord/edit','AttendanceController@update_attendancerecord');
+    Route::get('/attendancerecords','AttendanceController@attendancerecords')->name('user_attendancerecords');
+    Route::get('/sites','AttendanceController@sites')->name('user_sites');
 });
 
-Route::get('/attendancerecords','AttendanceController@attendancerecords');
 
-*/
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

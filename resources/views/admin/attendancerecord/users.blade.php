@@ -25,7 +25,11 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{ $user->id }}</td>
-                                    <td>{{ $user->icon_path }}</td>
+                                    <td>
+                                        @if ($user->icon_path)
+                                            <img src="{{ asset('storage/image/' . $user->icon_path) }}">
+                                        @endif
+                                    </td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->role }}</td>
                                     <td>

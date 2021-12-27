@@ -18,7 +18,6 @@
                     <div class="form-group row">
                         <label class="col-4">現場名</label>
                         <div class="col-8">
-                                <!--<input type="text" class="form-control" name="site_name" autocomplete=off value="{{ old('site_name') }}">-->
                                 <input type="text" class="form-control" name="site_name" autocomplete=off value="{{ $site->name }}" style="text-align:right">
                         </div>
                     </div>

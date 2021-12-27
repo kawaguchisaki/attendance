@@ -28,7 +28,13 @@
                         </div>
                         <label class="col-4"></label>
                         <div class="col-8">
-                            変更後：<input type="text" size=20 name='email' placeholder="新しいメールアドレス" autocomplete="off">
+                            <input type="text" size=30 name='email' placeholder="新しいメールアドレス" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4">パスワード</label>
+                        <div class="col-8">
+                            <input type="text" size=30 name='passward' placeholder="新しいパスワード" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group row">

@@ -9,7 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Housemaker;
 use App\Site;
 use App\User;
+use App\Attendance;
 use Storage;
+
 
 class AttendanceController extends Controller
 {
@@ -117,6 +119,7 @@ class AttendanceController extends Controller
         
         if (isset($user_form['icon_path'])) {
             $path = $request->file('icon_path')->store('public/icon_path');
+            $user->icon_path = basename($path);
         } else {
             $user->icon_path = null;
         }
@@ -136,7 +139,7 @@ class AttendanceController extends Controller
         $user->is_admin = 0; //従業員＝０
         $user->save();
         
-        return redirect('admin.attendancerecord.new_user');
+        return redirect('admin/users');
     }
     
     public function users() //従業員一覧
@@ -150,17 +153,40 @@ class AttendanceController extends Controller
     {
         $user = User::find($request->id);
         
+        if(empty($user)) {
+            abort(404);
+        }
+        
         return view('admin.attendancerecord.edit_user',['user' => $user]);
     }
     
-    public function update_user() //post従業員編集
+    public function update_user(Request $request) //post従業員編集
     {
+        $this->validate($request, User::$rules);
+        
+        $user = User::find($request->id);
+        
         //
+        
         return redirect('admin/users');
     }
     
-    public function delete_user(){ //従業員削除
-        
+    public function add_import() //getCSVからインポート
+    {
+        return view('admin.attendancerecord.import');
+    }
+    
+    public function import() //postCSVからインポート
+    {
+        return redirect('admin/users');
+    }
+    
+    
+    public function delete_user(Request $request) //従業員削除
+    {
+        $user = User::find($request->id);
+        $user->delete();
+        return redirect('admin/users');
     }
     
     public function add_new_attendancerecord(Request $request) //get勤務記録登録
@@ -172,19 +198,102 @@ class AttendanceController extends Controller
     
     public function new_attendancerecord(Request $request) //post勤務記録登録
     {
-        $this->validate($request, User::$rules);
-        $this->validate($request, Site::$rules);
-        $this->validate($request, Housemaker::$rules);
+        $this->validate($request, Attendance::$rules);
         
         $attendance = new Attendance();
-        $attendance->date = $request->date;
-        $attendance->name = $request->name;
         
+        $attendance->date = $request->date;
+        
+        $saved_user = User::where('name', $request->user)->first();
+        $attendance->user_id = $saved_user->id;
+        
+        $saved_site = Site::where('name', $request->site)->first();
+        $attendance->site_id = $saved_site->id;
+        $attendance->housemaker_id = $saved_site->housemaker_id;
+        
+        
+        $attendance->work_time = $request->work_time;
+        if(isset($attendance['work_time'])){
+            if($request->work_time == 8){
+                $attendance->work_time = 8;
+            } else {
+                $attendance->work_time = 4;
+            }
+        }
+        
+        $attendance->approval_status = 1;
+        
+        $attendance->save();
+        
+        return redirect('admin/attendancerecords');
     }
     
-    public function attendancerecords() //勤務記録一覧
+    public function attendancerecords(Request $request) //勤務記録一覧
     {
-        return view('admin.attendancerecord.attendancerecords',['users' => User::all()]);
+        $users = User::all();
+        
+        
+        $cond_user = User::find($request->cond_user);
+        if($cond_user != ''){
+            
+            $attendances = Attendance::where('user_id', $cond_user->id)->get();
+        } else {
+            $attendances = Attendance::all();
+        }
+        
+        return view('admin.attendancerecord.attendancerecords',['users' => $users, 'cond_user' => $cond_user, 'attendances' => $attendances]);
+    }
+    
+    public function edit_attendancerecord(Request $request) //get勤務記録編集
+    {
+        
+        $attendance = Attendance::find($request->id);
+        $this_user = User::where('id',$attendance->user_id)->get();
+        
+        if(empty($attendance)) {
+            abort(404);
+        }
+        
+        return view('admin.attendancerecord.edit_attendancerecord', ['attendance' => $attendance, 'users' => User::all(), 'sites' => Site::all(), 'housemakers' => Housemaker::all(), 'this_user' => $this_user]);
+    }
+    
+    public function update_attendancerecord(Request $request) //post勤務記録編集
+    {
+        $this->validate($request, Attendance::$rules);
+        
+        $attendance = Attendance::find($request->id);
+        
+        $attendance->date = $request->date;
+        
+        $saved_user = User::find($request->user);
+        $attendance->user_id = $saved_user->id;
+        
+        $saved_site = Site::find($request->site);
+        $attendance->site_id = $saved_site->id;
+        $attendance->housemaker_id = $saved_site->housemaker_id;
+        
+        
+        $attendance->work_time = $request->work_time;
+        if(isset($attendance['work_time'])){
+            if($request->work_time == 8){
+                $attendance->work_time = 8;
+            } else {
+                $attendance->work_time = 4;
+            }
+        }
+        
+        $attendance->approval_status = 1;
+        
+        $attendance->save();
+        
+        return redirect('admin/attendancerecords');
+    }
+    
+    public function delete_attendancerecord(Request $request)
+    {
+        $attendance = Attendance::find($request->id);
+        $attendance->delete();
+        return redirect('admin/attendancerecords');
     }
     
     public function approval() //申請一覧

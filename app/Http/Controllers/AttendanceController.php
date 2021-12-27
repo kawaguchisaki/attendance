@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Housemaker;
 use App\Site;
 use App\User;
+use App\Attendance;
 use Storage;
 
 class AttendanceController extends Controller
@@ -17,7 +18,7 @@ class AttendanceController extends Controller
     
     public function home() //userホーム
     {
-        return view('attendancerecord.home');
+        return view('attendancerecord.home', ['attendances' => Attendance::all()]);
     }
     
     public function sites() //現場一覧
@@ -39,20 +40,26 @@ class AttendanceController extends Controller
         //
         return redirect('user/home');
     }
-    /*
-    public function new_attendancerecord()
+    
+    public function add_new_attendancerecord() //get勤務登録申請
     {
-        //勤務登録申請
+        return view('attendancerecord.new', ['sites' => Site::all(),'housemakers' => Housemaker::all()]);
     }
     
-    public function attendancerecords()
+    public function new_attendancerecord() //post勤務登録申請
     {
-        //勤務記録一覧
+        
+    }
+    
+    public function attendancerecords() //勤務記録一覧
+    {
+        $attendances = Attendance::where('user_id', Auth::user()->id)->get();
+        return view('attendancerecord.attendancerecords', ['attendances' => $attendances]);
     }
     
     public function edit_attendancerecord()
     {
         //勤務記録編集申請
     }
-    */ 
+    
 }

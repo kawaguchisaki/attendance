@@ -18,13 +18,19 @@
                     <div class="form-group row">
                         <label class="col-4">従業員名</label>
                         <div class="col-8">
-                            <p>（入力もしくはCSVからデータ取得）</p>
+                            <input type="text" class="form-control" name="name" autocomplete=off value="{{ old('name') }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-4"></label>
+                        <label class="col-4">メールアドレス</label>
                         <div class="col-8">
-                            <input type="text" class="form-control" name="name" autocomplete=off value="{{ old('name') }}">
+                            <input type="text" class="form-control" name="email" autocomplete=off value="{{ old('email') }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4">パスワード</label>
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="password" autocomplete=off value="{{ old('password') }}">
                         </div>
                     </div>
                     <div class="form-group row">

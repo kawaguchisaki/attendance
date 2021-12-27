@@ -1,13 +1,13 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 
-@section('title','勤務記録登録')
+@section('title','勤務記録申請')
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-8 mx-auto">
-                <h2>勤務記録登録</h2>
-                <form action="{{ action('Admin\AttendanceController@new_attendancerecord') }}" method="post" enctype="multipart/form-data">
+                <h2>勤務記録申請</h2>
+                <form action="{{ action('AttendanceController@new_attendancerecord') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -23,14 +23,7 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-4">名前</label>
-                        <div class="col-8">
-                            <select class="form-control" name="user">
-                                <option hidden>選択してください</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                @endforeach($users as $user)
-                            </select>
-                        </div>
+                        <div class="col-8">{{ Auth::user()->name }}</div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4">現場名</label>
@@ -61,17 +54,17 @@
                         <div class="col-8">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-secondary active">
-                                    <input type="radio" name="work_time" value=8 autocomplete="off" checked>１日
+                                    <input type="radio" name="day" id="full" value="１日"autocomplete="off" checked>１日
                                 </label>
                                 <label class="btn btn-outline-secondary">
-                                    <input type="radio" name="work_time" value=4 autocomplete="off">半日
+                                    <input type="radio" name="day" id="half" value="半日" autocomplete="off">半日
                                 </label>
                             </div>
                         </div>
                     </div>
                     {{ csrf_field() }}
                     <div class="text-right">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="登録">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="申請">
                     </div>
                 </form>
             </div>

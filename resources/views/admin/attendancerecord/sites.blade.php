@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <h2>現場一覧</h2>
-        <div class="text-right">
+        <div class="text-right mb-3">
             <a href="{{ action('Admin\AttendanceController@add_new_site') }}" role="button" class="btn btn-primary">新規登録</a>
         </div>
         <div class="row">

@@ -32,6 +32,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-site">
                                     <a class="dropdown-item" href="{{ route('new_site') }}">登録</a>
+                                    <a class="dropdown-item" href="{{ route('import') }}">CSVからインポート</a>
                                     <a class="dropdown-item" href="{{ route('admin_sites') }}">一覧</a>
                                 </div>
                             </li>
@@ -45,17 +46,30 @@
                                 </div>
                             </li>
                         </ul>
-                        <!--<ul class="navbar-nav ml=auto">-->
-                        <!--    <li class="nav-item dropdown">-->
-                        <!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--        
-                        <!--        ユーザー名表示-->
-                        <!--        </a>-->
-                        <!--        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-user">-->
-                        <!--            <a class="dropdown-item" href="{{ route('edit_user') }}">プロフィール編集</a>-->
-                        <!--        </div>-->
-                        <!--    </li>-->
-                        <!--</ul>-->
+                        <ul class="navbar-nav ml=auto">
+                            @guest
+                            <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                            @else
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-user" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-user">
+                                    <a class="dropdown-item" href="{{ route('edit_user') }}">プロフィール編集</a>
+                                
+                                    <a class="dropdown-item" href="https://c97f1a95b0db4a66ad0a3f6e55b98d03.vfs.cloud9.us-east-2.amazonaws.com/logout"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="https://c97f1a95b0db4a66ad0a3f6e55b98d03.vfs.cloud9.us-east-2.amazonaws.com/logout" method="POST" style="display: none;">
+                                        <input type="hidden" name="_token" value="Kl3AzDcpj9daRr4r2rM1gmQifj1jG9yLvVEBEp6v">
+                                    </form>
+                                </div>
+                            </li>
+                            @endguest
+                        </ul>
                     </div>
                 </duv>
             </nav>

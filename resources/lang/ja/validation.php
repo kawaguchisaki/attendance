@@ -148,6 +148,8 @@ return [
     'attributes' => [
         'site_name' => '現場名',
         'housemaker_name' => 'ハウスメーカー',
+        'user' => '従業員名',
+        'site' => '現場名',
         ],
 
 ];
