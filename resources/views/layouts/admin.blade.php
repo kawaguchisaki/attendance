@@ -32,7 +32,6 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-site">
                                     <a class="dropdown-item" href="{{ route('new_site') }}">登録</a>
-                                    <a class="dropdown-item" href="{{ route('import') }}">CSVからインポート</a>
                                     <a class="dropdown-item" href="{{ route('admin_sites') }}">一覧</a>
                                 </div>
                             </li>
@@ -42,6 +41,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-user">
                                     <a class="dropdown-item" href="{{ route('new_user') }}">登録</a>
+                                    <a class="dropdown-item" href="{{ route('import_user') }}">CSVから登録</a>
                                     <a class="dropdown-item" href="{{ route('users') }}">一覧</a>
                                 </div>
                             </li>

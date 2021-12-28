@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Goodby\CSV\Import\Standard\Lexer;
+use Goodby\CSV\Import\Standard\Interpreter;
+use Goodby\CSV\Import\Standard\LexerConfig;
+
 
 use App\Housemaker;
 use App\Site;
@@ -171,15 +175,66 @@ class AttendanceController extends Controller
         return redirect('admin/users');
     }
     
-    public function add_import() //getCSVからインポート
+    public function add_import_user() //getCSVからインポート
     {
-        return view('admin.attendancerecord.import');
+        return view('admin.attendancerecord.user_csv_import');
     }
     
-    public function import() //postCSVからインポート
+    public function import_user(Request $request) //postCSVからインポート
     {
+        $user = $request->file('user');
+        
+        //goodby csvのconfig設定
+        $config = new LexerConfig();
+        $interpreter = new Interpreter();
+        $lexer = new Lexer($config);
+        
+        //CharsetをUTF-8に変換
+        $config->setToCharset('UTF-8');
+        $config->setFromCharset('SJIS-win');
+        
+        $config->setIgnoreHeaderLine(true);//CSVのヘッダーを無視
+        
+        $datalist = [];
+        
+        //$datalistに配列を代入する新規observer
+        $interpreter->addObserver(function (array $row) use (&$datalist){
+            $datalist[] = $row;
+        });
+        
+        $lexer->parse($user,$interpreter); //CSVデータをパース
+        
+        unlink($tmpPath); //TMP(一時的に作成される)ファイルを削除
+        
+        $count = 0;
+        foreach($datalist as $row){
+            $import_users = (['name' => $row[0], 'email' => $row[1], 'password' => $row[2]]);
+            $count++;
+        }
+        
+        return view('admin.attendancerecord.user_csv_import_check', ['import_users' => $import_users]);
+    }
+    
+    public function add_import_user_check() //get csvから取得した内容を確認、編集
+    {
+        return view('admin.attendancerecord.user_csv_import_check');
+    }
+    
+    public function import_user_check(Request $request) //get csvから取得した内容を保存
+    {
+        $this->validate($request, User::$rules);
+        
+        $user = new User();
+        $user_form = $request->all;
+        
+        $user->fill($user_form);
+        $user->is_admin = 0; //従業員＝０
+        $user->save();
+        
         return redirect('admin/users');
     }
+    
+    
     
     
     public function delete_user(Request $request) //従業員削除

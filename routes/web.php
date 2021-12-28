@@ -35,8 +35,10 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'admin'], function(){ //管�
     Route::get('attendancerecord/edit','Admin\AttendanceController@edit_attendancerecord')->name('admin_edit_attendancerecord');
     Route::post('attendancerecord/edit','Admin\AttendanceController@update_attendancerecord');
     Route::get('attendancerecord/delete','Admin\AttendanceController@delete_attendancerecord');
-    Route::get('user/import','Admin\AttendanceController@add_import')->name('import');
-    Route::post('user/import','Admin\AttendanceController@import');
+    Route::get('user/import','Admin\AttendanceController@add_import_user')->name('import_user');
+    Route::post('user/import','Admin\AttendanceController@import_user');
+    Route::get('user/import/check','Admin\AttendanceController@add_import_user_check');
+    Route::post('user/import/check','Admin\AttendanceController@import_user_check');
     
     /*管理者
     Route::post('attendancerecord/approval','Admin\AttendanceController@approval');
