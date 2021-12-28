@@ -287,8 +287,7 @@ class AttendanceController extends Controller
     {
         $users = User::all();
         
-        
-        $cond_user = User::find($request->cond_user);
+        $cond_user = User::where('name',$request->cond_user)->first();
         if($cond_user != ''){
             
             $attendances = Attendance::where('user_id', $cond_user->id)->get();
