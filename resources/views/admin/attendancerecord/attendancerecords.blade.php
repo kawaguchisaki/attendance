@@ -4,30 +4,72 @@
 
 @section('content')
     <div class="container">
-        <h2>勤務記録一覧</h2>
         <div class="row">
-            <div class="col-8">
+            <div class="col">
+                <h2>勤務記録一覧</h2>
+            </div>
+            <div class="text-right mb-3">
+                <a href="{{ action('Admin\AttendanceController@add_new_attendancerecord') }}" role="button" class="btn btn-primary">新規登録</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <form action="{{ action('Admin\AttendanceController@attendancerecords') }}" method="get">
                     <div class="form-group row">
-                        <div class="col-8">
-                            <input type="text" class="form-control" name='cond_user' list='saved-user-name' placeholder="入力もしくは選択" autocomplete="off">
-                                <datalist id='saved-user-name'>
-                                    @foreach($users as $user)
-                                        <option value="{{ $user->name }}">
-                                    @endforeach
-                                </datalist>
-                        </div>
-                        <div class="col-4">
-                            {{ csrf_field() }}
-                            <input type="submit" class="btn btn-secondary" value="検索">
-                            
+                        <div class="col-12">
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            絞り込み
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control mb-3" name="cond_user" list="saved-users-name" placeholder="名前を入力もしくは選択" autocomplete="off" value="{{ old('cond_user') }}">
+                                                        <datalist id="saved-users-name">
+                                                            @foreach($users as $user)
+                                                                <option value="{{ $user->name }}">
+                                                            @endforeach
+                                                        </datalist>
+                                                </div> 
+                                                <div class="col-6">
+                                                    <input type="text" class="form-control mb-3" name="cond_housemaker" list="saved_housemakers_name" placeholder="名前を入力もしくは選択" autocomplete="off" value="{{ old('cond_user') }}">
+                                                        <datalist id="saved_housemakers_name">
+                                                            @foreach($housemakers as $housemaker)
+                                                                <option value="{{ $housemaker->name }}">
+                                                            @endforeach
+                                                        </datalist>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col">     
+                                                    <input type="date" class="form-control" name="from" placeholder="カレンダーから選択" value="{{ old('from') }}">
+                                                </div>
+                                                <div class="col-1">
+                                                    ～
+                                                </div>
+                                                <div class="col">
+                                                    <input type="date" class="form-control" name="until" placeholder="カレンダーから選択" value="{{ old('until') }}">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                {{ csrf_field() }}
+                                                <input type="submit" class="btn btn-dark btn-lg btn-block" value="検索">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-4 text-right mb-3">
-                <a href="{{ action('Admin\AttendanceController@add_new_attendancerecord') }}" role="button" class="btn btn-primary">新規登録</a>
-            </div>
+            
         </div>
         <div class="row">
             <div class="list-site col-12 mx-auto">

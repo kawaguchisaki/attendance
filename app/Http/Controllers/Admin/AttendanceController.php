@@ -293,16 +293,56 @@ class AttendanceController extends Controller
     public function attendancerecords(Request $request) //勤務記録一覧
     {
         $users = User::all();
+        $housemakers = Housemaker::all();
         
         $cond_user = User::where('name',$request->cond_user)->first();
-        
+        $cond_housemaker =Housemaker::where('name', $request->cond_housemaker)->first();
+        /*
         if($cond_user != ''){
             $attendances = Attendance::where('user_id', $cond_user->id)->get();
         } else {
             $attendances = Attendance::all();
         }
+        */
         
-        return view('admin.attendancerecord.attendancerecords',['users' => $users, 'cond_user' => $cond_user, 'attendances' => $attendances]);
+        $day_from = $request->from;
+        $day_until = $request->until;
+        
+        if($cond_user != ''){ //名前検索
+            $attendances = Attendance::where('user_id', $cond_user->id)->get();
+            
+        } else if($cond_housemaker != '') { //ハウスメーカー検索
+            $attendances = Attendance::where('housemaker_id', $cond_housemaker->id)->get();
+            
+        } else if(!empty($day_from) && !empty($day_until)) { //期間指定検索
+            $attendances = Attendance::whereBetween('date', [$day_from, $day_until])->get();
+            
+        } else if($cond_user != '' && !empty($day_from) && !empty($day_until)) { //名前、期間指定検索
+            $attendances = Attendance::where('user_id', $cond_user->id)
+                                        ->whereBetween('date', [$day_from, $day_until])
+                                        ->get();
+            
+        } else if($cond_housemaker != '' && !empty($day_from) && !empty($day_until)) { //ハウスメーカー、期間指定検索
+            $attendances = Attendance::where('housemaker_id', $cond_housemaker->id)
+                                        ->whereBetween('date', [$day_from, $day_until])
+                                        ->get();
+            
+        } else if($cond_user != '' && $cond_housemaker != '') { //名前、ハウスメーカー検索
+            $attendances = Attendance::where('user_id', $cond_user->id)
+                                        ->where('housemaker_id', $cond_housemaker->id)
+                                        ->get();
+            
+        } else if($cond_user != '' && $cond_housemaker != '' && !empty($day_from) && !empty($day_until)) {//名前、ハウスメーカー、期間指定検索
+            $attendances = Attendance::where('user_id', $cond_user->id)
+                                        ->where('housemaker_id', $cond_housemaker->id)
+                                        ->whereBetween('date', [$day_from, $day_until])
+                                        ->get();
+            
+        } else { //検索欄が空白のとき
+            $attendances = Attendance::all();
+        }
+        
+        return view('admin.attendancerecord.attendancerecords',['users' => $users, 'housemakers' => $housemakers, 'cond_user' => $cond_user, 'attendances' => $attendances]);
     }
     
     public function edit_attendancerecord(Request $request) //get勤務記録編集
