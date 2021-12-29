@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Goodby\CSV\Import\Standard\Lexer;
 use Goodby\CSV\Import\Standard\Interpreter;
 use Goodby\CSV\Import\Standard\LexerConfig;
-
+use Illuminate\Support\Facades\Hash;
 
 use App\Housemaker;
 use App\Site;
@@ -182,7 +182,10 @@ class AttendanceController extends Controller
     
     public function import_user(Request $request) //postCSVからインポート
     {
-        $user = $request->file('user');
+        //一時的なTMPファイルを生成
+        $tmpName = mt_rand().".".$request->file('user')->guessExtension();
+        $request->file('user')->move(public_path()."/csv/tmp/",$tmpName);
+        $tmpPath = public_path()."/csv/tmp/".$tmpName;
         
         //goodby csvのconfig設定
         $config = new LexerConfig();
@@ -202,34 +205,38 @@ class AttendanceController extends Controller
             $datalist[] = $row;
         });
         
-        $lexer->parse($user,$interpreter); //CSVデータをパース
+        $lexer->parse($tmpPath,$interpreter); //CSVデータをパース
         
         unlink($tmpPath); //TMP(一時的に作成される)ファイルを削除
         
         $count = 0;
+        $import_users = collect();
         foreach($datalist as $row){
-            $import_users = (['name' => $row[0], 'email' => $row[1], 'password' => $row[2]]);
-            $count++;
+                $import_user = new User();
+                $import_user->name = $row[0];
+                $import_user->email = $row[1];
+                $import_user->password = $row[2];
+                $import_users->push($import_user); //コレクションにアイテムを追加
         }
         
         return view('admin.attendancerecord.user_csv_import_check', ['import_users' => $import_users]);
     }
-    
-    public function add_import_user_check() //get csvから取得した内容を確認、編集
+    /*
+    public function add_import_user_check() //post csvから取得した内容を確認、編集
     {
         return view('admin.attendancerecord.user_csv_import_check');
     }
-    
-    public function import_user_check(Request $request) //get csvから取得した内容を保存
+    */
+    public function import_user_check(Request $request) //post csvから取得した内容を保存
     {
-        $this->validate($request, User::$rules);
+        dd($request->all());
         
-        $user = new User();
-        $user_form = $request->all;
         
-        $user->fill($user_form);
-        $user->is_admin = 0; //従業員＝０
-        $user->save();
+        for($i = 0; $i < count($request->name); $i++){
+          $data = ["name"=>$request->name[$i], "email"=>$request->email[$i], "password"=>Hash::make($request->password[$i])];
+          User::create($data);
+        }
+        
         
         return redirect('admin/users');
     }
@@ -288,8 +295,8 @@ class AttendanceController extends Controller
         $users = User::all();
         
         $cond_user = User::where('name',$request->cond_user)->first();
+        
         if($cond_user != ''){
-            
             $attendances = Attendance::where('user_id', $cond_user->id)->get();
         } else {
             $attendances = Attendance::all();
@@ -302,13 +309,14 @@ class AttendanceController extends Controller
     {
         
         $attendance = Attendance::find($request->id);
-        $this_user = User::where('id',$attendance->user_id)->get();
+        $thisUser = User::where('id',$attendance->user_id)->first();
+        $thisSite = Site::where('id',$attendance->site_id)->first();
         
         if(empty($attendance)) {
             abort(404);
         }
         
-        return view('admin.attendancerecord.edit_attendancerecord', ['attendance' => $attendance, 'users' => User::all(), 'sites' => Site::all(), 'housemakers' => Housemaker::all(), 'this_user' => $this_user]);
+        return view('admin.attendancerecord.edit_attendancerecord', ['attendance' => $attendance, 'users' => User::all(), 'sites' => Site::all(), 'housemakers' => Housemaker::all(), 'thisUser' => $thisUser, 'thisSite'=> $thisSite]);
     }
     
     public function update_attendancerecord(Request $request) //post勤務記録編集
