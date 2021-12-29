@@ -25,10 +25,10 @@
                         <label class="col-4">名前</label>
                         <div class="col-8">
                             <select class="form-control" name="user">
-                                
                                 @foreach($users as $user)
                                     <option value="{{ $user->id }}"
-                                    @if($attendance->user_id == $this_user) selected @endif>{{ $user->name }}</option>
+                                    @if($user->id == $thisUser->id) selected @endif>
+                                    {{ $user->name }}</option>
                                 @endforeach($users as $user)
                             </select>
                         </div>
@@ -39,7 +39,9 @@
                             <select class="form-control" name="site">
                                 
                                 @foreach($sites as $site)
-                                    <option value="{{ $site->id }}">{{ $site->name }}</option>
+                                    <option value="{{ $site->id }}"
+                                    @if($site->id == $thisSite->id) selected @endif>
+                                    {{ $site->name }}</option>
                                 @endforeach($sites as $site)
                             </select>
                         </div>

@@ -13,16 +13,16 @@
                             <input type="text" class="form-control" name='cond_user' list='saved-user-name' placeholder="入力もしくは選択" autocomplete="off">
                                 <datalist id='saved-user-name'>
                                     @foreach($users as $user)
-                                        <option value="{{$user->name }}">
-                                    @endforeach($users as $user)
+                                        <option value="{{ $user->name }}">
+                                    @endforeach
                                 </datalist>
                         </div>
                         <div class="col-4">
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-secondary" value="検索">
+                            
                         </div>
                     </div>
-                    
                 </form>
             </div>
             <div class="col-4 text-right mb-3">
@@ -50,8 +50,8 @@
                                 <tr>
                                     <td>{{ $attendance->id }}</td>
                                     <td>{{ $attendance->date }}</td>
-                                    <td>{{ $attendance->user->name }}</td>
-                                    <td>{{ $attendance->site->name }}</td>
+                                    <td>{{ $attendance->user->name??'名前が削除されています' }}</td>
+                                    <td>{{ $attendance->site->name??'現場名が削除されています' }}</td>
                                     <th>{{ $attendance->house_maker->name }}</th>
                                     <td>{{ $attendance->house_maker->get_help }}</td>
                                     <td>{{ $attendance->work_time }}</td>
