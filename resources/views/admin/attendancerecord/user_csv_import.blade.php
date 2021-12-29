@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     {{ csrf_field() }}
-                    <a href="{{ action('Admin\AttendanceController@add_import_user_check') }}" role="button" class="btn btn-primary btn-lg btn-block">確認</a>
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="確認">
                 </form>
             </div>
         </div>
