@@ -16,15 +16,15 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <label>名前</label>
-                                            <input type="text" class="form-control" name="user[][name]" autocomplete="off" value="{{ $import_user->name }}">
+                                            <input type="text" class="form-control" name="name[]" autocomplete="off" value="{{ $import_user->name }}">
                                         </div>
                                         <div class="col">
                                             <label>メールアドレス</label>
-                                            <input type="text" class="form-control" name="user[][email]" autocomplete="off" value="{{ $import_user->email }}">
+                                            <input type="text" class="form-control" name="email[]" autocomplete="off" value="{{ $import_user->email }}">
                                         </div> 
                                         <div class="col">
                                             <label>パスワード</label>
-                                            <input type="text" class="form-control" name="user[][password]" autocomplete="off" value="{{ $import_user->password }}">
+                                            <input type="text" class="form-control" name="password[]" autocomplete="off" value="{{ $import_user->password }}">
                                         </div>
                                     </div>
                                 </li>
