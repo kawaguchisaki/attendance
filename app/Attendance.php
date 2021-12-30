@@ -28,8 +28,8 @@ class Attendance extends Model
         return $this->belongsTo('App\Housemaker','housemaker_id'); //attendancesテーブルはhousemakersテーブルと１：多
     }
     
-    public function getWorkTimeAttribute($value){
-        switch($value){
+    public function getWorkTimeStringAttribute(){//ここで$valueを渡してしまうと勤務日数計算のときに１日、半日がここで上書きされてしまい、整数として計算ができない。
+        switch($this->work_time){
             case 8:
                 return "１日";
                 break;
@@ -37,7 +37,7 @@ class Attendance extends Model
                 return "半日";
                 break;
             default:
-                return $value."時間";
+                return $this->work_time."時間";
         }
         //一覧表示画面でで表示されないように設定
     }

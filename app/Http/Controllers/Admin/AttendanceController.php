@@ -261,12 +261,15 @@ class AttendanceController extends Controller
         
         $attendance->date = $request->date;
         
+        
         $saved_user = User::where('name', $request->user)->first();
         $attendance->user_id = $saved_user->id;
-        
+    
         $saved_site = Site::where('name', $request->site)->first();
         $attendance->site_id = $saved_site->id;
         $attendance->housemaker_id = $saved_site->housemaker_id;
+        
+        
         
         
         $attendance->work_time = $request->work_time;
@@ -334,8 +337,9 @@ class AttendanceController extends Controller
         $q['from'] = !isset($q['from']) ? '' : $q['from'];
         $q['until'] = !isset($q['until']) ? '' : $q['until'];
         
+        $total_day = !empty($day_from) && !empty($day_until) ? $attendances->sum('work_time')/8 : null;
         
-        return view('admin.attendancerecord.attendancerecords',['users' => $users, 'housemakers' => $housemakers, 'cond_user' => $cond_user, 'attendances' => $attendances, 'q' => $q]);
+        return view('admin.attendancerecord.attendancerecords',['users' => $users, 'housemakers' => $housemakers, 'cond_user' => $cond_user, 'attendances' => $attendances, 'q' => $q, 'total_day' => $total_day]);
     }
     
     public function edit_attendancerecord(Request $request) //get勤務記録編集

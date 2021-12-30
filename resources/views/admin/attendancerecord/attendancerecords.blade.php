@@ -57,6 +57,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col">
+                                @if(isset($total_day))
+                                <div class="card border-dark my-3 text-center" >
+                                    <div class="card-body">
+                                        <p class="card-text">合計勤務日数は{{ $total_day }}日です。</p>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -88,7 +97,7 @@
                                     <td>{{ $attendance->site->name??'現場名が削除されています' }}</td>
                                     <th>{{ $attendance->house_maker->name }}</th>
                                     <td>{{ $attendance->house_maker->get_help }}</td>
-                                    <td>{{ $attendance->work_time }}</td>
+                                    <td>{{ $attendance->work_time_string }}</td>
                                     <td>
                                         <div>
                                             <a href="{{ action('Admin\AttendanceController@edit_attendancerecord' , ['id' => $attendance->id]) }}" role="button" class="btn btn-secondary">編集</a>
