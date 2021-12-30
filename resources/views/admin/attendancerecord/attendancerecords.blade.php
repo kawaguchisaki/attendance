@@ -24,7 +24,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-6">
-                                            <input type="text" class="form-control mb-3" name="cond_user" list="saved-users-name" placeholder="名前を入力もしくは選択" autocomplete="off" value="{{ old('cond_user') }}">
+                                            <input type="text" class="form-control mb-3" name="cond_user" list="saved-users-name" placeholder="名前を入力もしくは選択" autocomplete="off" value="{{ $q['cond_user'] }}">
                                                 <datalist id="saved-users-name">
                                                     @foreach($users as $user)
                                                         <option value="{{ $user->name }}">
@@ -32,7 +32,7 @@
                                                 </datalist>
                                         </div> 
                                         <div class="col-6">
-                                            <input type="text" class="form-control mb-3" name="cond_housemaker" list="saved_housemakers_name" placeholder="ハウスメーカーを入力もしくは選択" autocomplete="off" value="{{ old('cond_user') }}">
+                                            <input type="text" class="form-control mb-3" name="cond_housemaker" list="saved_housemakers_name" placeholder="ハウスメーカーを入力もしくは選択" autocomplete="off" value="{{ $q['cond_housemaker'] }}">
                                                 <datalist id="saved_housemakers_name">
                                                     @foreach($housemakers as $housemaker)
                                                         <option value="{{ $housemaker->name }}">
@@ -42,13 +42,13 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col">     
-                                            <input type="date" class="form-control" name="from" placeholder="カレンダーから選択" value="{{ old('from') }}">
+                                            <input type="date" class="form-control" name="from" placeholder="カレンダーから選択" value="{{ $q['from'] }}">
                                         </div>
                                         <div class="col-1 m-auto">
                                             ～
                                         </div>
                                         <div class="col">
-                                            <input type="date" class="form-control" name="until" placeholder="カレンダーから選択" value="{{ old('until') }}">
+                                            <input type="date" class="form-control" name="until" placeholder="カレンダーから選択" value="{{ $q['until'] }}">
                                         </div>
                                     </div>
                                     <div class="col">
