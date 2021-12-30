@@ -41,6 +41,8 @@ class User extends Authenticatable
     
     public static $rules = array(
         'name' => 'required',
+        'email' => 'required',
+        'password' => 'required',
     );
     
     public function isAdmin(){

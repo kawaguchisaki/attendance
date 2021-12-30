@@ -150,6 +150,9 @@ return [
         'housemaker_name' => 'ハウスメーカー',
         'user' => '従業員名',
         'site' => '現場名',
+        'name' => '名前',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
         ],
 
 ];
