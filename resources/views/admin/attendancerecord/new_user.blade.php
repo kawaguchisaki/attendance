@@ -16,7 +16,7 @@
                         </ul>
                     @endif
                     <div class="form-group row">
-                        <label class="col-4">従業員名</label>
+                        <label class="col-4">名前</label>
                         <div class="col-8">
                             <input type="text" class="form-control" name="name" autocomplete=off value="{{ old('name') }}">
                         </div>
