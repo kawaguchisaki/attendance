@@ -17,53 +17,45 @@
                 <form action="{{ action('Admin\AttendanceController@attendancerecords') }}" method="get">
                     <div class="form-group row">
                         <div class="col-12">
-                            <div class="accordion" id="accordionExample">
-                                <div class="card">
-                                    <div class="card-header" id="headingOne">
-                                        <h5 class="mb-0">
-                                            <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            絞り込み
-                                            </button>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <input type="text" class="form-control mb-3" name="cond_user" list="saved-users-name" placeholder="名前を入力もしくは選択" autocomplete="off" value="{{ old('cond_user') }}">
-                                                        <datalist id="saved-users-name">
-                                                            @foreach($users as $user)
-                                                                <option value="{{ $user->name }}">
-                                                            @endforeach
-                                                        </datalist>
-                                                </div> 
-                                                <div class="col-6">
-                                                    <input type="text" class="form-control mb-3" name="cond_housemaker" list="saved_housemakers_name" placeholder="名前を入力もしくは選択" autocomplete="off" value="{{ old('cond_user') }}">
-                                                        <datalist id="saved_housemakers_name">
-                                                            @foreach($housemakers as $housemaker)
-                                                                <option value="{{ $housemaker->name }}">
-                                                            @endforeach
-                                                        </datalist>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col">     
-                                                    <input type="date" class="form-control" name="from" placeholder="カレンダーから選択" value="{{ old('from') }}">
-                                                </div>
-                                                <div class="col-1">
-                                                    ～
-                                                </div>
-                                                <div class="col">
-                                                    <input type="date" class="form-control" name="until" placeholder="カレンダーから選択" value="{{ old('until') }}">
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                {{ csrf_field() }}
-                                                <input type="submit" class="btn btn-dark btn-lg btn-block" value="検索">
-                                            </div>
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    絞り込み
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control mb-3" name="cond_user" list="saved-users-name" placeholder="名前を入力もしくは選択" autocomplete="off" value="{{ old('cond_user') }}">
+                                                <datalist id="saved-users-name">
+                                                    @foreach($users as $user)
+                                                        <option value="{{ $user->name }}">
+                                                    @endforeach
+                                                </datalist>
+                                        </div> 
+                                        <div class="col-6">
+                                            <input type="text" class="form-control mb-3" name="cond_housemaker" list="saved_housemakers_name" placeholder="ハウスメーカーを入力もしくは選択" autocomplete="off" value="{{ old('cond_user') }}">
+                                                <datalist id="saved_housemakers_name">
+                                                    @foreach($housemakers as $housemaker)
+                                                        <option value="{{ $housemaker->name }}">
+                                                    @endforeach
+                                                </datalist>
                                         </div>
                                     </div>
-                                </div>   
+                                    <div class="row mb-3">
+                                        <div class="col">     
+                                            <input type="date" class="form-control" name="from" placeholder="カレンダーから選択" value="{{ old('from') }}">
+                                        </div>
+                                        <div class="col-1 m-auto">
+                                            ～
+                                        </div>
+                                        <div class="col">
+                                            <input type="date" class="form-control" name="until" placeholder="カレンダーから選択" value="{{ old('until') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        {{ csrf_field() }}
+                                        <input type="submit" class="btn btn-dark btn-lg btn-block" value="検索">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
