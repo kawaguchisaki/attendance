@@ -23,15 +23,28 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col text-right mb-3">
+                                            <a href="{{ action('Admin\AttendanceController@attendancerecords') }}" role="button" class="btn btn-secondary">検索をリセット</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
                                             <input type="text" class="form-control mb-3" name="cond_user" list="saved-users-name" placeholder="名前を入力もしくは選択" autocomplete="off" value="{{ $q['cond_user'] }}">
                                                 <datalist id="saved-users-name">
                                                     @foreach($users as $user)
                                                         <option value="{{ $user->name }}">
                                                     @endforeach
                                                 </datalist>
-                                        </div> 
-                                        <div class="col-6">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control mb-3" name="cond_site" list="saved-sites-name" placeholder="現場名を入力もしくは選択" autocomplete="off" value="{{ $q['cond_site'] }}">
+                                                <datalist id="saved-sites-name">
+                                                    @foreach($sites as $site)
+                                                        <option value="{{ $site->name }}">
+                                                    @endforeach
+                                                </datalist>
+                                        </div>
+                                        <div class="col">
                                             <input type="text" class="form-control mb-3" name="cond_housemaker" list="saved_housemakers_name" placeholder="ハウスメーカーを入力もしくは選択" autocomplete="off" value="{{ $q['cond_housemaker'] }}">
                                                 <datalist id="saved_housemakers_name">
                                                     @foreach($housemakers as $housemaker)
