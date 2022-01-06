@@ -15,7 +15,7 @@ use App\Site;
 use App\User;
 use App\Attendance;
 use Storage;
-
+use App\Rules\Hankaku;
 
 class AttendanceController extends Controller
 {
@@ -54,7 +54,9 @@ class AttendanceController extends Controller
     
     public function home() //adminホーム
     {
-        return view('admin.attendancerecord.home');
+        $approval_0_attendances = Attendance::where('approval_status', 0)->get();
+        
+        return view('admin.attendancerecord.home', ['approval_0_attendances' => $approval_0_attendances]);
     }
     
     public function sites() //現場一覧
@@ -117,6 +119,7 @@ class AttendanceController extends Controller
     public function new_user(Request $request) //post従業員登録
     {
         $this->validate($request, User::$rules);
+        $request->validate(['password' => ['required', new Hankaku, 'min:6', 'unique:users'],]);
         
         $user = new User;
         $user_form = $request->all();
@@ -255,6 +258,9 @@ class AttendanceController extends Controller
     
     public function new_attendancerecord(Request $request) //post勤務記録登録
     {
+        
+        
+        
         $this->validate($request, Attendance::$rules);
         
         $attendance = new Attendance();
@@ -292,16 +298,21 @@ class AttendanceController extends Controller
     {
         $users = User::all();
         $housemakers = Housemaker::all();
+        $sites = Site::all();
         
-        $cond_user = User::where('name',$request->cond_user)->first();
-        $cond_housemaker =Housemaker::where('name', $request->cond_housemaker)->first();
+        $cond_user = User::where('name', $request->cond_user)->first();
+        $cond_housemaker = Housemaker::where('name', $request->cond_housemaker)->first();
+        $cond_site = Site::where('name', $request->cond_site)->first();
         
         $day_from = $request->from;
         $day_until = $request->until;
         
         $query = Attendance::query();
-        if ($cond_user != '') {
+        if ($cond_user != '') { //名前検索
             $query->where('user_id', $cond_user->id);
+        }
+        if ($cond_site != '') { //現場名検索
+            $query->where('site_id', $cond_site->id);
         }
         if ($cond_housemaker != '') { //ハウスメーカー検索
             $query->where('housemaker_id', $cond_housemaker->id);
@@ -313,16 +324,49 @@ class AttendanceController extends Controller
             $query->where('user_id', $cond_user->id);
             $query->whereBetween('date', [$day_from, $day_until]);
         }
+        if ($cond_site != '' && !empty($day_from) && !empty($day_until)) { //現場名、期間指定検索
+            $query->where('site_id', $cond_site->id);
+            $query->whereBetween('date', [$day_from, $day_until]);
+        }
         if ($cond_housemaker != '' && !empty($day_from) && !empty($day_until)) { //ハウスメーカー、期間指定検索
             $query->where('housemaker_id', $cond_housemaker->id);
             $query->whereBetween('date', [$day_from, $day_until]);
+        }
+        if ($cond_user != '' && $cond_site != ''){ //名前、現場名検索
+            $query->where('user_id', $cond_user->id);
+            $query->where('site_id', $cond_site->id);
         }
         if ($cond_user != '' && $cond_housemaker != '') { //名前、ハウスメーカー検索
             $query->where('user_id', $cond_user->id);
             $query->where('housemaker_id', $cond_housemaker->id);
         }
+        if ($cond_site != '' && $cond_housemaker != '') { //現場名、ハウスメーカー検索
+            $query->where('site_id', $cond_site->id);
+            $query->where('housemaker_id', $cond_housemaker->id);
+        }
+        if ($cond_user != '' && $cond_site != '' && $cond_housemaker != '') { //名前、現場名、ハウスメーカー検索
+            $query->where('user_id', $cond_user->id);
+            $query->where('site_id', $cond_site->id);
+            $query->where('housemaker_id', $cond_housemaker->id);
+        }
+        if ($cond_user != '' && $cond_site != '' && !empty($day_from) && !empty($day_until)) {//名前、現場名、期間指定検索
+            $query->where('user_id', $cond_user->id);
+            $query->where('site_id', $cond_site->id);
+            $query->whereBetween('date', [$day_from, $day_until]);
+        }
         if ($cond_user != '' && $cond_housemaker != '' && !empty($day_from) && !empty($day_until)) {//名前、ハウスメーカー、期間指定検索
             $query->where('user_id', $cond_user->id);
+            $query->where('housemaker_id', $cond_housemaker->id);
+            $query->whereBetween('date', [$day_from, $day_until]);
+        }
+        if ($cond_site != '' && $cond_housemaker != '' && !empty($day_from) && !empty($day_until)) { //現場名、ハウスメーカー、期間指定検索
+            $query->where('site_id', $cond_site->id);
+            $query->where('housemaker_id', $cond_housemaker->id);
+            $query->whereBetween('date', [$day_from, $day_until]);
+        }
+        if ($cond_user != '' && $cond_site != '' && $cond_housemaker != '' && !empty($day_from) && !empty($day_until)) { //名前、現場名、ハウスメーカー、期間指定検索
+            $query->where('user_id', $cond_user->id);
+            $query->where('site_id', $cond_site->id);
             $query->where('housemaker_id', $cond_housemaker->id);
             $query->whereBetween('date', [$day_from, $day_until]);
         }
@@ -333,13 +377,14 @@ class AttendanceController extends Controller
         
         //検索ワードを保持
         $q['cond_user'] = !isset($q['cond_user']) ? '' : $q['cond_user'];
+        $q['cond_site'] = !isset($q['cond_site']) ? '' : $q['cond_site'];
         $q['cond_housemaker'] = !isset($q['cond_housemaker']) ? '' : $q['cond_housemaker'];
         $q['from'] = !isset($q['from']) ? '' : $q['from'];
         $q['until'] = !isset($q['until']) ? '' : $q['until'];
         
         $total_day = !empty($day_from) && !empty($day_until) ? $attendances->sum('work_time')/8 : null;
         
-        return view('admin.attendancerecord.attendancerecords',['users' => $users, 'housemakers' => $housemakers, 'cond_user' => $cond_user, 'attendances' => $attendances, 'q' => $q, 'total_day' => $total_day]);
+        return view('admin.attendancerecord.attendancerecords',['users' => $users, 'sites' => $sites, 'attendances' => $attendances, 'housemakers' => $housemakers, 'cond_user' => $cond_user, 'cond_site' => $cond_site, 'q' => $q, 'total_day' => $total_day]);
     }
     
     public function edit_attendancerecord(Request $request) //get勤務記録編集
