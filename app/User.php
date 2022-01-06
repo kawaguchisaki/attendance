@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Rules\Hankaku;
 
 class User extends Authenticatable
 {
@@ -40,9 +41,9 @@ class User extends Authenticatable
     protected $guarded = array('id');
     
     public static $rules = array(
-        'name' => 'required',
-        'email' => 'required',
-        'password' => 'required',
+        'name' => 'required|unique:users',
+        'email' => 'required|unique:users',
+        //'password' => ['required', new Hankaku], //Controllerに記載
     );
     
     public function isAdmin(){
