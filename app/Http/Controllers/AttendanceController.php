@@ -48,7 +48,7 @@ class AttendanceController extends Controller
     
     public function new_attendancerecord() //post勤務登録申請
     {
-        
+        return redirect('/attendancerecords');
     }
     
     public function attendancerecords() //勤務記録一覧
@@ -57,9 +57,21 @@ class AttendanceController extends Controller
         return view('attendancerecord.attendancerecords', ['attendances' => $attendances]);
     }
     
-    public function edit_attendancerecord()
+    public function edit_attendancerecord() //get勤務記録編集申請
     {
-        //勤務記録編集申請
+        $attendance = Attendance::find($request->id);
+        $thisUser = User::where('id',$attendance->user_id)->first();
+        $thisSite = Site::where('id',$attendance->site_id)->first();
+        
+        if(empty($attendance)) {
+            abort(404);
+        }
+        
+        return view('admin.attendancerecord.edit_attendancerecord', ['attendance' => $attendance, 'users' => User::all(), 'sites' => Site::all(), 'housemakers' => Housemaker::all(), 'thisUser' => $thisUser, 'thisSite'=> $thisSite]);
     }
     
+    public function update_attendancerecord() //post勤務記録編集申請
+    {
+        return redirect('/attendancerecords');
+    }
 }
