@@ -34,11 +34,11 @@
                                     <td>{{ $attendance->date }}</td>
                                     <td>{{ $attendance->site->name }}</td>
                                     <th>{{ $attendance->house_maker->name }}</th>
-                                    <td>{{ $site->house_maker->get_help }}</td>
+                                    <td>{{ $attendance->house_maker->get_help }}</td>
                                     <td>{{ $attendance->day }}</td>
                                     <td>
                                         <div>
-                                            <a href="{{ action('Admin\AttendanceController@edit_site' , ['id' => $site->id]) }}" role="button" class="btn btn-secondary">編集申請</a>
+                                            <a href="{{ action('AttendanceController@edit_site' , ['id' => $site->id]) }}" role="button" class="btn btn-secondary">編集申請</a>
                                         </div>
                                     </td>
                                 </tr>
