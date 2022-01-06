@@ -25,7 +25,7 @@
                         <label class="col-4">名前</label>
                         <div class="col-8">
                             <select class="form-control" name="user">
-                                <option hidden>選択してください</option>
+                                <option value="">選択してください</option>
                                 @foreach($users as $user)
                                     <option value="{{ $user->name }}">{{ $user->name }}</option>
                                 @endforeach($users as $user)
@@ -36,7 +36,7 @@
                         <label class="col-4">現場名</label>
                         <div class="col-8">
                             <select class="form-control" name="site">
-                                <option hidden>選択してください</option>
+                                <option value="">選択してください</option>
                                 @foreach($sites as $site)
                                     <option value="{{ $site->name }}">{{ $site->name }}</option>
                                 @endforeach($sites as $site)
