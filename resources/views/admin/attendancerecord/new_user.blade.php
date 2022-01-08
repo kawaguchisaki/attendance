@@ -33,12 +33,6 @@
                             <input type="text" class="form-control" name="password" autocomplete=off value="{{ old('password') }}">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-4">アイコン画像</label>
-                        <div class="col-8">
-                            <input type="file" class="form-control-file" name="icon_path">
-                        </div>
-                    </div>
                     {{ csrf_field() }}
                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="登録">
                 </form>

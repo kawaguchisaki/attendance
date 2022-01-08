@@ -18,27 +18,13 @@
                     <div class="form-group row">
                         <label class="col-4">名前</label>
                         <div class="col-8">
-                            {{ $user->name }}
+                            <input type="text" class="form-control" name="name" autocomplete=off value="{{ $user->name }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4">メールアドレス</label>
                         <div class="col-8">
-                            {{ $user->email }}
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-4">アイコン</label>
-                        <div class="col-8">
-                            <div class="form-text text-info">
-                                設定中：{{ $user->icon_path }}
-                            </div>
-                            <input type="file" class="form-control-file" name="icon_path">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="remove" value="true">画像を削除
-                                </label>
-                            </div>
+                            <input type="text" class="form-control" name="name" autocomplete=off value="{{ $user->email }}">
                         </div>
                     </div>
                     {{ csrf_field() }}
