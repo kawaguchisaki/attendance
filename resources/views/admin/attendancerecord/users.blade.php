@@ -15,7 +15,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col-1"></th>
                                 <th scope="col">名前</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
@@ -25,11 +24,6 @@
                             @foreach($users as $user)
                                 <tr>
                                     <td>{{ $user->id }}</td>
-                                    <td>
-                                        @if ($user->icon_path)
-                                            <img src="{{ asset('storage/image/' . $user->icon_path) }}">
-                                        @endif
-                                    </td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->role }}</td>
                                     <td>
