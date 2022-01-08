@@ -23,7 +23,9 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-4">名前</label>
-                        <div class="col-8">{{ Auth::user()->name }}</div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="user" value="{{ Auth::user()->name }}">
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4">現場名</label>
@@ -35,29 +37,16 @@
                                 @endforeach($sites as $site)
                             </select>
                         </div>
-                        
-                        
                     </div>
-                    <!--<div class="form-group row">-->
-                    <!--    <label class="col-4">ハウスメーカー</label>-->
-                    <!--    <div class="col-8">-->
-                    <!--        <select class="form-control" name="housemaker">-->
-                    <!--            <option hidden>選択してください</option>-->
-                    <!--            @foreach($housemakers as $housemaker)-->
-                    <!--                <option value="{{$housemaker->name }}">{{ $housemaker->name }}</option>-->
-                    <!--            @endforeach($housemakers as $housemaker)-->
-                    <!--        </select>-->
-                    <!--    </div>-->
-                    <!--</div>-->
                     <div class="form-group row">
                         <label class="col-4"></label>
                         <div class="col-8">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-secondary active">
-                                    <input type="radio" name="day" id="full" value="１日"autocomplete="off" checked>１日
+                                    <input type="radio" name="work_time" value=8 autocomplete="off" checked>１日
                                 </label>
                                 <label class="btn btn-outline-secondary">
-                                    <input type="radio" name="day" id="half" value="半日" autocomplete="off">半日
+                                    <input type="radio" name="work_time" value=4 autocomplete="off">半日
                                 </label>
                             </div>
                         </div>

@@ -45,17 +45,6 @@
                         
                         
                     </div>
-                    <!--<div class="form-group row">-->
-                    <!--    <label class="col-4">ハウスメーカー</label>-->
-                    <!--    <div class="col-8">-->
-                    <!--        <select class="form-control" name="housemaker">-->
-                    <!--            <option hidden>選択してください</option>-->
-                    <!--            @foreach($housemakers as $housemaker)-->
-                    <!--                <option value="{{$housemaker->name }}">{{ $housemaker->name }}</option>-->
-                    <!--            @endforeach($housemakers as $housemaker)-->
-                    <!--        </select>-->
-                    <!--    </div>-->
-                    <!--</div>-->
                     <div class="form-group row">
                         <label class="col-4"></label>
                         <div class="col-8">
