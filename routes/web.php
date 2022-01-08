@@ -39,10 +39,9 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'admin'], function(){ //管�
     Route::post('user/import','Admin\AttendanceController@import_user');
     //Route::get('user/import/check','Admin\AttendanceController@add_import_user_check');
     Route::post('user/import/check','Admin\AttendanceController@import_user_check');
-    
-    /*管理者
+    Route::get('attendancerecord/approval','Admin\AttendanceController@approval_check');
     Route::post('attendancerecord/approval','Admin\AttendanceController@approval');
-    */
+    
 });
 //従業員
 Route::group(['prefix' => 'user' , 'middleware' => 'auth'], function(){

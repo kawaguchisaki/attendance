@@ -398,7 +398,7 @@ class AttendanceController extends Controller
             abort(404);
         }
         
-        return view('admin.attendancerecord.edit_attendancerecord', ['attendance' => $attendance, 'users' => User::all(), 'sites' => Site::all(), 'housemakers' => Housemaker::all(), 'thisUser' => $thisUser, 'thisSite'=> $thisSite]);
+        return view('admin.attendancerecord.edit_attendancerecord', ['attendance' => $attendance, 'users' => User::all(), 'sites' => Site::all(), 'thisUser' => $thisUser, 'thisSite'=> $thisSite]);
     }
     
     public function update_attendancerecord(Request $request) //post勤務記録編集
@@ -440,9 +440,49 @@ class AttendanceController extends Controller
         return redirect('admin/attendancerecords');
     }
     
-    public function approval() //申請一覧
+    public function approval_check(Request $request) //申請内容確認
     {
-        //
+        $approval_0_attendance = Attendance::find($request->id);
+        $thisUser = User::where('id',$approval_0_attendance->user_id)->first();
+        $thisSite = Site::where('id',$approval_0_attendance->site_id)->first();
+        
+        if(empty($approval_0_attendance)) {
+            abort(404);
+        }
+        
+        return view('admin.attendancerecord.approval', ['approval_0_attendance' => $approval_0_attendance, 'users' => User::all(), 'sites' => Site::all(), 'thisUser' => $thisUser, 'thisSite'=> $thisSite]);
     }
     
+    public function approval(Request $request) //申請承認
+    {
+        $this->validate($request, Attendance::$rules);
+        
+        $attendance = Attendance::find($request->id);
+        
+        $attendance->date = $request->date;
+        
+        $saved_user = User::find($request->user);
+        $attendance->user_id = $saved_user->id;
+        
+        $saved_site = Site::find($request->site);
+        $attendance->site_id = $saved_site->id;
+        $attendance->housemaker_id = $saved_site->housemaker_id;
+        
+        
+        $attendance->work_time = $request->work_time;
+        if(isset($attendance['work_time'])){
+            if($request->work_time == 8){
+                $attendance->work_time = 8;
+            } else {
+                $attendance->work_time = 4;
+            }
+        }
+        
+        $attendance->approval_status = 1;
+        
+        $attendance->save();
+        
+        return redirect('admin/attendancerecords');
+        
+    }
 }

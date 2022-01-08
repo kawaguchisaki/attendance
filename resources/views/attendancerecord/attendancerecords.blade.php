@@ -24,6 +24,7 @@
                                 <th scope="col">ハウスメーカー</th>
                                 <th scope="col">応援</th>
                                 <th scope="col"></th>
+                                <th scope="col">申請状況</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -32,13 +33,14 @@
                                 <tr>
                                     <td>{{ $attendance->id }}</td>
                                     <td>{{ $attendance->date }}</td>
-                                    <td>{{ $attendance->site->name }}</td>
+                                    <td>{{ $attendance->site->name??'現場名が削除されています' }}</td>
                                     <th>{{ $attendance->house_maker->name }}</th>
                                     <td>{{ $attendance->house_maker->get_help }}</td>
-                                    <td>{{ $attendance->day }}</td>
+                                    <td>{{ $attendance->work_time_string }}</td>
+                                    <td>{{ $attendance->approval_status }}</td>
                                     <td>
                                         <div>
-                                            <a href="{{ action('AttendanceController@edit_site' , ['id' => $site->id]) }}" role="button" class="btn btn-secondary">編集申請</a>
+                                            <a href="{{ action('AttendanceController@edit_attendancerecord' , ['id' => $attendance->id]) }}" role="button" class="btn btn-secondary">編集申請</a>
                                         </div>
                                     </td>
                                 </tr>

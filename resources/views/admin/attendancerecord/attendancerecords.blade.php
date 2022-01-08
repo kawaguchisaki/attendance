@@ -98,6 +98,7 @@
                                 <th scope="col">ハウスメーカー</th>
                                 <th scope="col">応援</th>
                                 <th scope="col"></th>
+                                <th scope="col">申請状況</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -111,6 +112,7 @@
                                     <th>{{ $attendance->house_maker->name }}</th>
                                     <td>{{ $attendance->house_maker->get_help }}</td>
                                     <td>{{ $attendance->work_time_string }}</td>
+                                    <td>{{ $attendance->approval_status }}</td>
                                     <td>
                                         <div>
                                             <a href="{{ action('Admin\AttendanceController@edit_attendancerecord' , ['id' => $attendance->id]) }}" role="button" class="btn btn-secondary">編集</a>
