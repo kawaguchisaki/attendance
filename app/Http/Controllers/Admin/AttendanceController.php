@@ -91,6 +91,7 @@ class AttendanceController extends Controller
             $site->housemaker_id = $saved_housemaker->id; //housemakersテーブルにある既存のデータのidを$site->housemaker_idとし、
             $site->save();
         }else {
+            $housemaker = new Housemaker;
             $housemaker->name = $request->housemaker_name;
             $housemaker->get_help = $request->get_help;
             $housemaker->get_help = isset($housemaker['get_help']); //$housemaker->get_helpがtrueの場合(チェックが入ってる場合)true=1を代入、そうでなければfalse=0を代入
@@ -124,24 +125,6 @@ class AttendanceController extends Controller
         $user = new User;
         $user_form = $request->all();
         
-        if (isset($user_form['icon_path'])) {
-            $path = $request->file('icon_path')->store('public/icon_path');
-            $user->icon_path = basename($path);
-        } else {
-            $user->icon_path = null;
-        }
-        
-        unset($user_form['icon_path']);
-        
-        /*
-        if (isset($user_form['icon_path'])){
-          $path = Storage::disk('s3')->putFile('/',$user_form['image'],'icon_path');
-          $user->icon_path = Storage::disk('s3')->url($path);
-        } else {
-            $user->icon_path = null;
-        }
-        unset($user_form['icon_path']);
-        */
         $user->fill($user_form);
         $user->is_admin = 0; //従業員＝０
         $user->save();
@@ -172,8 +155,12 @@ class AttendanceController extends Controller
         $this->validate($request, User::$rules);
         
         $user = User::find($request->id);
+        $user_form = $request->all();
         
-        //
+        $user->fill($user_form);
+        $user->is_admin = 0; //従業員＝０
+        $user->save();
+        
         
         return redirect('admin/users');
     }
