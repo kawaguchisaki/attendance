@@ -123,9 +123,11 @@ class AttendanceController extends Controller
         $request->validate(['password' => ['required', new Hankaku, 'min:6', 'unique:users'],]);
         
         $user = new User;
-        $user_form = $request->all();
-        
-        $user->fill($user_form);
+        //$user_form = $request->all();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        //$user->fill($user_form);
         $user->is_admin = 0; //従業員＝０
         $user->save();
         
@@ -155,9 +157,12 @@ class AttendanceController extends Controller
         $this->validate($request, User::$rules);
         
         $user = User::find($request->id);
-        $user_form = $request->all();
+        //$user_form = $request->all();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
         
-        $user->fill($user_form);
+        //$user->fill($user_form);
         $user->is_admin = 0; //従業員＝０
         $user->save();
         
