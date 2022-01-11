@@ -7,6 +7,7 @@
         <div class="row">
             <div class="col-8 mx-auto">
                 <h2 class="mb-5">CSVデータから従業員情報を登録</h2>
+                <p>CSVファイルを選択してください。複数の従業員を一括で登録することができます。</p>
                 <form action="{{ action('Admin\AttendanceController@import_user') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
