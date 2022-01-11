@@ -18,7 +18,7 @@
                     <div class="form-group row">
                         <label class="col-4"></label>
                         <div class="col-8">
-                            <input type="file" class="form-control-file" name="user" autocomplete="off">
+                            <input type="file" accept=".csv" class="form-control-file" name="user" autocomplete="off">
                         </div>
                     </div>
                     {{ csrf_field() }}
