@@ -161,8 +161,8 @@ class AttendanceController extends Controller
         $user = User::find($request->id);
         
         $request->validate([
-            'name' => ['required', Rule::unique('users', 'name')->whereNot('name', $user->name)],
-            'email' => ['required', Rule::unique('users', 'email')->whereNot('email', $user->email)],
+            'name' => ['required', Rule::unique('users', 'name')->ignore($user->id)],
+            'email' => ['required', Rule::unique('users', 'email')->ignore($user->id)],
             ]);
         $user->name = $request->name;
         $user->email = $request->email;
