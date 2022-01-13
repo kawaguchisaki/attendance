@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <h2>従業員一覧</h2>
-        <div class="text-right">
+        <div class="text-right mb-3">
             <a href="{{ action('Admin\AttendanceController@add_new_user') }}" role="button" class="btn btn-primary">新規登録</a>
         </div>
         <div class="row">
@@ -16,6 +16,7 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">名前</th>
+                                <th scope="col">メールアドレス</th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                             </tr>
@@ -25,6 +26,7 @@
                                 <tr>
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>{{ $user->role }}</td>
                                     <td>
                                         <div class="text-right">
