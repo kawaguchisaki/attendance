@@ -9,6 +9,7 @@ use Goodby\CSV\Import\Standard\Lexer;
 use Goodby\CSV\Import\Standard\Interpreter;
 use Goodby\CSV\Import\Standard\LexerConfig;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 use App\Housemaker;
 use App\Site;
@@ -120,7 +121,7 @@ class AttendanceController extends Controller
     public function new_user(Request $request) //post従業員登録
     {
         $this->validate($request, User::$rules);
-        $request->validate(['password' => ['required', new Hankaku, 'min:6', 'unique:users'],]);
+        $request->validate(['password' => ['required', new Hankaku, 'min:8', 'unique:users'],]);
         
         $user = new User;
         
@@ -156,8 +157,13 @@ class AttendanceController extends Controller
     {
         $this->validate($request, User::$rules);
         
+
         $user = User::find($request->id);
         
+        $request->validate([
+            'name' => ['required', Rule::unique('users', 'name')->whereNot('name', $user->name)],
+            'email' => ['required', Rule::unique('users', 'email')->whereNot('email', $user->email)],
+            ]);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);

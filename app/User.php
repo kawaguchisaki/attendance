@@ -40,9 +40,10 @@ class User extends Authenticatable
     
     protected $guarded = array('id');
     
+    
     public static $rules = array(
-        'name' => 'required|unique:users',
-        'email' => 'required|unique:users',
+        //'name' => 'required|unique:users',
+        //'email' => 'required|unique:users',
         //'password' => ['required', new Hankaku], //Controllerに記載
     );
     
