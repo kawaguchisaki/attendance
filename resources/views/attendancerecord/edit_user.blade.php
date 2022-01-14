@@ -1,12 +1,12 @@
 @extends('layouts.user')
 
-@section('title','プロフィール編集')
+@section('title','登録情報編集')
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-8 mx-auto">
-                <h2>プロフィール編集</h2>
+                <h2>登録情報編集</h2>
                 <form action="{{ action('AttendanceController@update_user') }}" method="post" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
@@ -18,17 +18,13 @@
                     <div class="form-group row">
                         <label class="col-4">名前</label>
                         <div class="col-8">
-                            <p>{{ $user->name }}</p>
+                            <input type="text" class="form-control" name="name" autocomplete=off value="{{ $user->name }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-4">メールアドレス</label>
                         <div class="col-8">
-                            変更前：{{ $user->email }}
-                        </div>
-                        <label class="col-4"></label>
-                        <div class="col-8">
-                            <input type="text" size=30 name='email' placeholder="新しいメールアドレス" autocomplete="off">
+                            <input type="text" class="form-control" name="email" autocomplete=off value="{{ $user->email }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -38,7 +34,7 @@
                         </div>
                     </div>
                     {{ csrf_field() }}
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="編集">
+                    <input type="submit" class="btn btn-primary btn-block" value="編集">
                 </form>
             </div>
         </div>
