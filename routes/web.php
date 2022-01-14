@@ -48,6 +48,7 @@ Route::group(['prefix' => 'user' , 'middleware' => 'auth'], function(){
     Route::get('home','AttendanceController@home')->name('user_home');
     Route::get('edit','AttendanceController@edit_user')->name('edit_user');
     Route::post('edit','AttendanceController@update_user');
+    Route::get('mypage','AttendanceController@mypage')->name('mypage');
 });
 
 
