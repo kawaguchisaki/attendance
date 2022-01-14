@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 use App\Housemaker;
 use App\Site;
 use App\User;
 use App\Attendance;
 use Storage;
+use App\Rules\Hankaku;
 
 class AttendanceController extends Controller
 {
@@ -35,9 +37,33 @@ class AttendanceController extends Controller
         return view('attendancerecord.edit_user',['user' => $user]);
     }
     
-    public function update_user() //post従業員編集
+    public function mypage() //マイページ
     {
-        //
+        return view('attendancerecord.mypage', ['user' => Auth::user()]);
+    }
+    
+    public function update_user(Request $request) //post従業員編集
+    {
+        $user = User::find(Auth::user()->id);
+        $request->validate([
+            'name' => ['required', Rule::unique('users', 'name')->ignore($user->id)],
+            'email' => ['required', Rule::unique('users', 'email')->ignore($user->id)],
+            'password' => [new Hankaku, 'min:8', 'unique:users'],
+            ]);
+        
+        if(empty($request->password)) {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $user->password;
+        } else {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+        }
+        
+        $user->is_admin = 0; //従業員＝０
+        $user->save();
+        
         return redirect('user/home');
     }
     
