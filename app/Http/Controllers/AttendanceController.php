@@ -126,8 +126,35 @@ class AttendanceController extends Controller
         return view('attendancerecord.edit_attendancerecord', ['attendance' => $attendance, 'users' => User::all(), 'sites' => Site::all(), 'housemakers' => Housemaker::all(), 'thisUser' => $thisUser, 'thisSite'=> $thisSite]);
     }
     
-    public function update_attendancerecord() //post勤務記録編集申請
+    public function update_attendancerecord(Request $request) //post勤務記録編集申請
     {
+        $this->validate($request, Attendance::$rules);
+        
+        $attendance = Attendance::find($request->id);
+        
+        $attendance->date = $request->date;
+        
+        $saved_user = User::find($request->user);
+        $attendance->user_id = $saved_user->id;
+        
+        $saved_site = Site::find($request->site);
+        $attendance->site_id = $saved_site->id;
+        $attendance->housemaker_id = $saved_site->housemaker_id;
+        
+        
+        $attendance->work_time = $request->work_time;
+        if(isset($attendance['work_time'])){
+            if($request->work_time == 8){
+                $attendance->work_time = 8;
+            } else {
+                $attendance->work_time = 4;
+            }
+        }
+        
+        $attendance->approval_status = 0;
+        
+        $attendance->save();
+        
         return redirect('/attendancerecords');
     }
 }
