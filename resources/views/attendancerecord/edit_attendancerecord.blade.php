@@ -53,10 +53,10 @@
                         <div class="col-8">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-outline-secondary active">
-                                    <input type="radio" name="work_time" id="full" value="１日"autocomplete="off" checked>１日
+                                    <input type="radio" name="work_time" value=8 {{ $attendance->work_time == 8 ? 'checked' : '' }}>１日
                                 </label>
                                 <label class="btn btn-outline-secondary">
-                                    <input type="radio" name="work_time" id="half" value="半日" autocomplete="off">半日
+                                    <input type="radio" name="work_time" value=4 {{ $attendance->work_time == 4 ? 'checked' : '' }}>半日
                                 </label>
                             </div>
                         </div>
