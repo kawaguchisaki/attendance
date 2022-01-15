@@ -44,7 +44,6 @@
                     <h5 class="card-header border-dark">承認待ち勤務記録</h5>
                         <div class="card-body">
                             @if(isset($approval_0_attendances))
-                                @foreach($approval_0_attendances as $approval_0_attendance)
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -58,6 +57,7 @@
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
+                                @foreach($approval_0_attendances as $approval_0_attendance)
                                     <tbody>
                                         <tr>
                                             <td>{{ $approval_0_attendance->id }}</td>
@@ -95,8 +95,8 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
                                 @endforeach
+                                </table>
                             @endif
                         </div>
                        
