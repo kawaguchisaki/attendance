@@ -26,6 +26,15 @@
                                 現場一覧
                                 </a>
                             </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink-attendance" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                勤務記録
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-attendance">
+                                    <a class="dropdown-item" href="{{ route('user_new_attendancerecord') }}">申請</a>
+                                    <a class="dropdown-item" href="{{ route('user_attendancerecords') }}">一覧</a>
+                                </div>
+                            </li>
                         </ul>
                         <ul class="navbar-nav ml=auto">
                             @guest
