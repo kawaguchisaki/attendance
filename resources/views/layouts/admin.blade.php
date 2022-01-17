@@ -69,7 +69,7 @@
                                     <a class="dropdown-item" href="https://c97f1a95b0db4a66ad0a3f6e55b98d03.vfs.cloud9.us-east-2.amazonaws.com/logout"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        Logout
+                                        ログアウト
                                     </a>
 
                                     <form id="logout-form" action="https://c97f1a95b0db4a66ad0a3f6e55b98d03.vfs.cloud9.us-east-2.amazonaws.com/logout" method="POST" style="display: none;">
