@@ -14,8 +14,7 @@ class AddIconAdminToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('icon_path')->after('remember_token');
-            $table->boolean('is_admin')->after('remember_token');
+            $table->boolean('is_admin')->nullable()->after('remember_token');
         });
     }
 
@@ -28,7 +27,6 @@ class AddIconAdminToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('icon_path');
             $table->boolean('is_admin');
         });
     }
