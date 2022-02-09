@@ -168,8 +168,12 @@ class AttendanceController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         
+        if($user->is_admin = 1){ //管理者＝1
+            $user->is_admin = 1;
+        } else {
+            $user->is_admin = 0; //従業員＝0
+        }
         
-        $user->is_admin = 0; //従業員＝０
         $user->save();
         
         
