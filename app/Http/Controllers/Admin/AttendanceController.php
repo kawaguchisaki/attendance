@@ -245,12 +245,7 @@ class AttendanceController extends Controller
         
         return view('admin.attendancerecord.user_csv_import_check', ['import_users' => $import_users]);
     }
-    /*
-    public function add_import_user_check() //post csvから取得した内容を確認、編集
-    {
-        return view('admin.attendancerecord.user_csv_import_check');
-    }
-    */
+    
     public function import_user_check(Request $request) //post csvから取得した内容を保存
     {
         
