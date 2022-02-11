@@ -37,13 +37,22 @@ class AttendanceController extends Controller
         $saved_housemaker = Housemaker::where('name', $request->housemaker_name)->first(); //hosemakersテーブルでnameを検索、フォームから送られてきたhousemaker_nameと一致するものがあればそれを代入
         if($saved_housemaker){
             $site->name = $request->site_name;
-            $site->housemaker_id = $saved_housemaker->id; //housemakersテーブルにある既存のデータのidを$site->housemaker_idとし、
+            $site->housemaker_id = $saved_housemaker->id; //housemakersテーブルにある既存のデータのidを$site->housemaker_idとする
+            if ($request->input('get_help') == 'on') { //checkboxがon=チェックされたら
+                $saved_housemaker->get_help = 1;
+            } else {
+                $saved_housemaker->get_help = 0;
+            }
+            $saved_housemaker->save();
             $site->save();
         }else {
             $housemaker = new Housemaker;
             $housemaker->name = $request->housemaker_name;
-            $housemaker->get_help = $request->get_help;
-            $housemaker->get_help = isset($housemaker['get_help']); //$housemaker->get_helpがtrueの場合(チェックが入ってる場合)true=1を代入、そうでなければfalse=0を代入
+            if ($request->input('get_help') == 'on') {
+                $housemaker->get_help = 1;
+            } else {
+                $housemaker->get_help = 0;
+            }
             $housemaker->save(); //foreach外でセットした値と一緒にhousemakersテーブルに保存
             $site->name = $request->site_name;
             $site->housemaker_id = $housemaker->id; //else内で保存されたhouswmakersテーブルのidをsitesテーブルのhousemaker_idにセット
@@ -71,12 +80,13 @@ class AttendanceController extends Controller
     public function edit_site(Request $request) //get現場情報編集
     {
         $site = Site::find($request->id);
+        $the_housemaker = Housemaker::find($site->housemaker_id);
         
         if (empty($site)) {
             abort(404);
         }
         
-        return view('admin.attendancerecord.edit_site', ['site' => $site, 'housemakers'=> Housemaker::all()]);
+        return view('admin.attendancerecord.edit_site', ['site' => $site, 'housemakers'=> Housemaker::all(), 'the_housemaker' => $the_housemaker]);
     }
     
     public function update_site(Request $request) //post現場情報編集
@@ -90,12 +100,21 @@ class AttendanceController extends Controller
         if($saved_housemaker){
             $site->name = $request->site_name;
             $site->housemaker_id = $saved_housemaker->id; //housemakersテーブルにある既存のデータのidを$site->housemaker_idとし、
+            if ($request->input('get_help') == 'on') {
+                $saved_housemaker->get_help = 1;
+            } else {
+                $saved_housemaker->get_help = 0;
+            }
+            $saved_housemaker->save();
             $site->save();
         }else {
             $housemaker = new Housemaker;
             $housemaker->name = $request->housemaker_name;
-            $housemaker->get_help = $request->get_help;
-            $housemaker->get_help = isset($housemaker['get_help']); //$housemaker->get_helpがtrueの場合(チェックが入ってる場合)true=1を代入、そうでなければfalse=0を代入
+            if ($request->input('get_help') == 'on') {
+                $housemaker->get_help = 1;
+            } else {
+                $housemaker->get_help = 0;
+            }
             $housemaker->save(); //foreach外でセットした値と一緒にhousemakersテーブルに保存
             $site->name = $request->site_name;
             $site->housemaker_id = $housemaker->id; //else内で保存されたhouswmakersテーブルのidをsitesテーブルのhousemaker_idにセット

@@ -18,7 +18,7 @@
                     <div class="form-group row">
                         <label class="col-4">現場名</label>
                         <div class="col-8">
-                                <input type="text" class="form-control" name="site_name" autocomplete=off value="{{ $site->name }}" style="text-align:right">
+                            <input type="text" class="form-control" name="site_name" autocomplete=off value="{{ $site->name }}" style="text-align:right">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -35,7 +35,7 @@
                     <div class="form-group row">
                         <label class="col-4">応援</label>
                         <div class="col-8">
-                            <input type="checkbox" class="form-check-input" name="get_help" value="true"> <!--true:応援、false:通常-->
+                            <input type="checkbox" class="form-check-input" name="get_help" {{ $site->house_maker->get_help == 1 ? 'checked' : '' }}> <!--1:応援、0:通常-->
                         </div>
                     </div>
                     {{ csrf_field() }}

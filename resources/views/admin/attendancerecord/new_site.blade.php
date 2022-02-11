@@ -36,7 +36,7 @@
                     <div class="form-group row">
                         <label class="col-4">応援</label>
                         <div class="col-8">
-                            <input type="checkbox" class="form-check-input" name="get_help" value="true"> <!--true:応援、false:通常-->
+                            <input type="checkbox" class="form-check-input" name="get_help"> <!--true:応援、false:通常-->
                         </div>
                     </div>
                     {{ csrf_field() }}
