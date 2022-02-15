@@ -91,8 +91,7 @@
                     <table class="table table-striped col-auto">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">日付</th>
+                                <th scope="col">勤務日</th>
                                 <th scope="col">名前</th>
                                 <th scope="col">現場名</th>
                                 <th scope="col">ハウスメーカー</th>
@@ -105,7 +104,6 @@
                         <tbody>
                             @foreach($attendances as $attendance)
                                 <tr>
-                                    <td>{{ $attendance->id }}</td>
                                     <td>{{ $attendance->date }}</td>
                                     <td>{{ $attendance->user->name??'名前が削除されています' }}</td>
                                     <td>{{ $attendance->site->name??'現場名が削除されています' }}</td>
