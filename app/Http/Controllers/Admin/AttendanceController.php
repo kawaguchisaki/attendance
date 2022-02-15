@@ -387,7 +387,8 @@ class AttendanceController extends Controller
             $query->whereBetween('date', [$day_from, $day_until]);
         }
         
-        $attendances = $query->groupBy('id')->get();
+        //$attendances = $query->groupBy('id')->get();
+        $attendances = $query->orderBy('date','asc')->get();
         
         $q = $request->all();
         
