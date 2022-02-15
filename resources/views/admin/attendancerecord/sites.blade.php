@@ -14,22 +14,20 @@
                     <table class="table table-striped col-auto">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
+                                <th scope="col">登録日</th>
                                 <th scope="col">現場名</th>
                                 <th scope="col">ハウスメーカー</th>
                                 <th scope="col">応援</th>
-                                <th scope="col">担当者</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($sites as $site)
                                 <tr>
-                                    <td>{{ $site->id }}</td>
+                                    <td>{{ $site->created_at->format('Y/m/d') }}</td>
                                     <td>{{ $site->name }}</td>
                                     <td>{{ $site->house_maker->name }}</td>
                                     <td>{{ $site->house_maker->get_help }}</td>
-                                    <td>a</td>
                                     <td>
                                         <div>
                                             <a href="{{ action('Admin\AttendanceController@edit_site' , ['id' => $site->id]) }}" role="button" class="btn btn-secondary">編集</a>
