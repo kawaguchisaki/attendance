@@ -47,8 +47,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">日付</th>
+                                            <th scope="col">勤務日</th>
                                             <th scope="col">名前</th>
                                             <th scope="col">現場名</th>
                                             <th scope="col">ハウスメーカー</th>
@@ -60,7 +59,6 @@
                                 @foreach($approval_0_attendances as $approval_0_attendance)
                                     <tbody>
                                         <tr>
-                                            <td>{{ $approval_0_attendance->id }}</td>
                                             <td>{{ $approval_0_attendance->date }}</td>
                                             <td>{{ $approval_0_attendance->user->name??'名前が削除されています' }}</td>
                                             <td>{{ $approval_0_attendance->site->name??'現場名が削除されています' }}</td>
