@@ -14,7 +14,7 @@
                     <table class="table table-striped col-auto">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
+                                <th scope="col">登録日</th>
                                 <th scope="col">名前</th>
                                 <th scope="col">メールアドレス</th>
                                 <th scope="col"></th>
@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->created_at->format('Y/m/d') }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->role }}</td>
