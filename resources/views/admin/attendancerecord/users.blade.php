@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $user->created_at->format('Y/m/d') }}</td>
+                                    <td>{{ $user->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->role }}</td>

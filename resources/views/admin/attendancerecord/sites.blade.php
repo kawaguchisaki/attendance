@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach($sites as $site)
                                 <tr>
-                                    <td>{{ $site->created_at->format('Y/m/d') }}</td>
+                                    <td>{{ $site->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $site->name }}</td>
                                     <td>{{ $site->house_maker->name }}</td>
                                     <td>{{ $site->house_maker->get_help }}</td>
