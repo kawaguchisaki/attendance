@@ -71,7 +71,7 @@ class AttendanceController extends Controller
     
     public function sites() //現場一覧
     {
-        $sites = Site::all();
+        $sites = Site::orderBy('created_at','desc')->get();
         $housemakers = Housemaker::all();
         
         return view('admin.attendancerecord.sites',['sites' => $sites , 'housemakers' => $housemakers]);
@@ -388,7 +388,7 @@ class AttendanceController extends Controller
         }
         
         //$attendances = $query->groupBy('id')->get();
-        $attendances = $query->orderBy('date','asc')->get();
+        $attendances = $query->orderBy('date','desc')->get();
         
         $q = $request->all();
         
