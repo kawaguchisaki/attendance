@@ -399,7 +399,7 @@ class AttendanceController extends Controller
         $q['from'] = !isset($q['from']) ? '' : $q['from'];
         $q['until'] = !isset($q['until']) ? '' : $q['until'];
         
-        $total_day = !empty($day_from) && !empty($day_until) ? $attendances->sum('work_time')/8 : null;
+        $total_day = !empty($cond_user) && !empty($cond_housemaker) && !empty($day_from) && !empty($day_until) ? $attendances->sum('work_time')/8 : null;
         
         return view('admin.attendancerecord.attendancerecords',['users' => $users, 'sites' => $sites, 'attendances' => $attendances, 'housemakers' => $housemakers, 'cond_user' => $cond_user, 'cond_site' => $cond_site, 'q' => $q, 'total_day' => $total_day]);
     }
